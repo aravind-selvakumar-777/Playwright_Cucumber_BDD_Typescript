@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true,      // Enable browser global variables (e.g., window, document)
+    "es2021": true,       // Enable modern ECMAScript 2021 features
+    "node": true          // Enable Node.js global variables and scoping
+  },
+  "extends": [
+    "eslint:recommended",                // Use ESLint's core recommended rules
+    "plugin:@typescript-eslint/recommended", // Add recommended TypeScript linting rules
+    "prettier"                           // Disable ESLint rules that conflict with Prettier
+  ],
+  "parser": "@typescript-eslint/parser", // Use the TypeScript-aware ESLint parser
+  "plugins": [
+    "@typescript-eslint", // Add TypeScript-specific linting rules
+    "prettier"            // Integrate Prettier for code formatting checks
+  ],
+  "rules": {
+    "prettier/prettier": ["error"],             // Treat Prettier formatting issues as ESLint errors
+    "@typescript-eslint/no-unused-vars": ["warn"] // Warn about declared but unused variables
+  }
+}
