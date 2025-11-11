@@ -7,6 +7,6 @@
     "publishQuiet": true,
     "parallel": 1,
     "snippetInterface": "async-await",
-    "dry-run": true
+    "dry-run": false
   }
 }
