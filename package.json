@@ -4,14 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx cucumber-js",
+    "lint:fix": "npx eslint . --fix",
+    "format:fix": "npx prettier --write ."
   },
+  "type": "module",
   "keywords": [],
   "author": "Arima",
   "license": "ISC",
   "devDependencies": {
     "@cucumber/cucumber": "^12.2.0",
     "@playwright/test": "^1.56.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
     "dotenv": "^17.2.3",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
