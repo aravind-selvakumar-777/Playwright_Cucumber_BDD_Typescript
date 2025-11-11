@@ -1,6 +1,6 @@
 {
-  "semi": true,              // Add semicolons at the ends of statements
-  "singleQuote": true,       // Use single quotes instead of double quotes
-  "printWidth": 100,         // Wrap lines longer than 100 characters
-  "trailingComma": "es5"     // Add trailing commas where valid in ES5 (objects, arrays, etc.)
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 100,
+  "trailingComma": "es5"
 }
