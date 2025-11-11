@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ESNext",                // Output modern JavaScript (latest ECMAScript features)
-    "module": "commonjs",              // Use CommonJS module system (for Node.js compatibility)
-    "strict": true,                    // Enable all strict type-checking options
-    "esModuleInterop": true,           // Allow default imports from CommonJS modules
-    "skipLibCheck": true,              // Skip type checking of declaration files (*.d.ts)
-    "outDir": "dist",                  // Directory for compiled JavaScript output
-    "rootDir": "src",                  // Root directory of TypeScript source files
-    "types": ["@types/node", "@playwright/test"] // Include Node.js and Playwright type definitions
+    "target": "ESNext", 
+    "module": "commonjs", 
+    "strict": true, 
+    "esModuleInterop": true, 
+    "skipLibCheck": true, 
+    "outDir": "dist", 
+    "rootDir": "src", 
+    "types": ["@types/node", "@playwright/test"] 
   },
-  "include": ["src/**/*.ts"]           // Include all .ts files inside the src folder and subfolders
+  "include": ["src/**/*.ts"] 
 }

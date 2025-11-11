@@ -1,0 +1,12 @@
+{
+  "default": {
+    "requireModule": ["ts-node/register"],
+    "require": ["src/steps/**/*.ts", "src/support/**/*.ts"],
+    "paths": ["src/features/**/*.feature"],
+    "format": ["progress", "html:test-results/cucumber-report.html"],
+    "publishQuiet": true,
+    "parallel": 1,
+    "snippetInterface": "async-await",
+    "dry-run": true
+  }
+}
