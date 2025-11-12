@@ -8,7 +8,6 @@
     "lint:fix": "npx eslint . --fix",
     "format:fix": "npx prettier --write ."
   },
-  "type": "module",
   "keywords": [],
   "author": "Arima",
   "license": "ISC",
