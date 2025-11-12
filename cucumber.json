@@ -6,7 +6,9 @@
     "format": ["progress", "html:test-results/cucumber-report.html"],
     "publishQuiet": true,
     "parallel": 1,
-    "snippetInterface": "async-await",
-    "dry-run": false
+    "formatOptions": {
+      "snippetInterface": "async-await"
+    },
+    "dryRun": false
   }
 }
