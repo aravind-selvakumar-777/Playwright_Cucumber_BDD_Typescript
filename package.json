@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cucumber-js",
-    "lint:fix": "npx eslint . --fix",
-    "format:fix": "npx prettier --write ."
+    "lint": "npx eslint . --fix"
   },
   "keywords": [],
   "author": "Arima",
