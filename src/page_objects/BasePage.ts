@@ -17,4 +17,17 @@ export class BasePage {
   async wait(locator: Locator) {
     await locator.waitFor({ state: 'visible', timeout: 5000 });
   }
+  async getText(locator: Locator, elementName = 'element'): Promise<string> {
+    try {
+      await locator.waitFor({ state: 'visible', timeout: 5000 });
+      const text = await locator.textContent();
+
+      if (text === null) {
+        throw new Error(`No text found in ${elementName}`);
+      }
+      return text.trim();
+    } catch (error) {
+      throw new Error(`Failed to get text from ${elementName}: ${(error as Error).message}`);
+    }
+  }
 }
