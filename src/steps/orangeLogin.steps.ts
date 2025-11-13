@@ -2,51 +2,51 @@ import { Given, Then, When } from '@cucumber/cucumber';
 import { CustomWorld } from '../support/world';
 import { config } from '../utils/config';
 import { expect } from 'playwright/test';
+import { LoginPage } from '../page_objects/LoginPage';
 
 Given('the user is on the OrangeHRM login page', async function (this: CustomWorld) {
-  await this.page.goto(config.baseUrl, { waitUntil: 'load' });
+  const loginPage = new LoginPage(this.page);
+  await loginPage.goToOrange(config.baseUrl);
 });
 When('the user enters a valid username and password', async function (this: CustomWorld) {
-  await this.page.getByPlaceholder('Username').fill(config.username);
-  await this.page.getByPlaceholder('Password').fill(config.password);
+  const loginPage = new LoginPage(this.page);
+  await loginPage.fillUsernameAndPassword(config.username, config.password);
 });
 When('clicks on the login button', async function (this: CustomWorld) {
-  await this.page.getByRole('button', { name: 'Login' }).click();
+  const loginPage = new LoginPage(this.page);
+  await loginPage.clickLoginButton();
 });
 
 Then('the user should be redirected to the dashboard page', async function (this: CustomWorld) {
-  await this.page.waitForSelector('h6');
-  expect(this.page.url()).toContain('dashboard');
+  const loginPage = new LoginPage(this.page);
+  const url = await loginPage.getCurrentURL();
+  expect(url).toContain('dashboard');
 });
 
 When(
   'the user enters an invalid username {string} or password {string}',
   async function (this: CustomWorld, username, password) {
-    await this.page.getByPlaceholder('Username').fill(username);
-    await this.page.getByPlaceholder('Password').fill(password);
+    const loginPage = new LoginPage(this.page);
+    await loginPage.fillUsernameAndPassword(username, password);
   }
 );
 Then('an error message {string} should be displayed', async function (this: CustomWorld, error) {
-  const errorMessage = await this.page.locator('div p').first().textContent();
+  const loginPage = new LoginPage(this.page);
+  const errorMessage = await loginPage.getInvalidLoginErrorText();
   expect(errorMessage).toEqual(error);
 });
 
 When('the user leaves the username and password fields blank', async function (this: CustomWorld) {
-  await this.page.getByPlaceholder('Username').fill('');
-  await this.page.getByPlaceholder('Password').fill('');
+  const loginPage = new LoginPage(this.page);
+  await loginPage.fillUsernameAndPassword('', '');
 });
 
 Then(
   'an error message {string} should be displayed under username and password',
   async function (this: CustomWorld, error) {
-    const usernameErr = await this.page
-      .locator('span.oxd-input-field-error-message')
-      .first()
-      .textContent();
-    const passErr = await this.page
-      .locator('span.oxd-input-field-error-message')
-      .nth(1)
-      .textContent();
+    const loginPage = new LoginPage(this.page);
+    const usernameErr = await loginPage.getMissingUsernameErrorText();
+    const passErr = await loginPage.getMissingPasswordErrorText();
     expect(usernameErr).toEqual(error);
     expect(passErr).toEqual(error);
   }
