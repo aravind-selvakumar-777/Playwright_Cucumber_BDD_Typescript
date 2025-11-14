@@ -23,8 +23,8 @@ jobs:
 
       - name: Build and run Playwright Docker container
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.20.0-focal npm ci  # Install dependencies inside Docker container
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.20.0-focal npm run test  # Run tests inside Docker container
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.56.1-noble npm ci  # Install dependencies inside Docker container
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.56.1-noble npm run test  # Run tests inside Docker container
 
       - name: Upload Test Results
         if: always()
