@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Use Ubuntu for Docker, since Playwright Docker images are based on Ubuntu
+    runs-on: ubuntu-latest  # Using Ubuntu, which works well with Playwright Docker images
 
     env:
       NODE_ENV: "ci"
@@ -19,12 +19,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Docker
-        uses: docker/setup-buildx-action@v2  # Ensures Docker is set up properly for multi-platform support
+        uses: docker/setup-buildx-action@v2
 
-      - name: Build and run Playwright Docker container
+      - name: Pull Playwright Docker Image
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.56.1-noble npm ci  # Install dependencies inside Docker container
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.56.1-noble npm run test  # Run tests inside Docker container
+          docker pull mcr.microsoft.com/playwright:v1.20.0-focal  # Ensure the image is pulled before use
+
+      - name: Install dependencies and run tests in Playwright Docker
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.20.0-focal npm ci  # Install dependencies inside Docker container
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.20.0-focal npm run test  # Run tests inside Docker container
 
       - name: Upload Test Results
         if: always()
