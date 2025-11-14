@@ -1,0 +1,42 @@
+name: CI - Playwright Cucumber TS Tests
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    env:
+      NODE_ENV: "ci"
+      NAME: ${{ secrets.NAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      BASE_URL: ${{ secrets.BASE_URL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use latest Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Tests (Cucumber + Playwright)
+        run: npm run test
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results
+          retention-days: 14
