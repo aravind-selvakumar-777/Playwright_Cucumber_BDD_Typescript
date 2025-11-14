@@ -23,12 +23,12 @@ jobs:
 
       - name: Pull Playwright Docker Image
         run: |
-          docker pull mcr.microsoft.com/playwright:v1.20.0-focal  # Ensure the image is pulled before use
+          docker pull docker pull mcr.microsoft.com/playwright:v1.56.1-noble  # Ensure the image is pulled before use
 
       - name: Install dependencies and run tests in Playwright Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.20.0-focal npm ci  # Install dependencies inside Docker container
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.20.0-focal npm run test  # Run tests inside Docker container
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace docker pull mcr.microsoft.com/playwright:v1.56.1-noble npm ci  # Install dependencies inside Docker container
+          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace docker pull mcr.microsoft.com/playwright:v1.56.1-noble npm run test  # Run tests inside Docker container
 
       - name: Upload Test Results
         if: always()
