@@ -13,7 +13,7 @@ export class LoginPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.page = page;
-    this.usernameTextBox = this.page.getByPlaceholder('Userame');
+    this.usernameTextBox = this.page.getByPlaceholder('Username');
     this.passwordTextBox = this.page.getByPlaceholder('Password');
     this.LoginButton = this.page.getByRole('button', { name: 'Login' });
     this.loginErrorMessage = this.page.locator('div p', { hasText: 'Invalid credentials' }).first();
