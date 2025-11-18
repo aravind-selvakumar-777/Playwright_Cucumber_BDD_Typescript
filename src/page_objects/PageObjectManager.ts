@@ -9,7 +9,7 @@ export class PageObjectManager {
     this.loginPage = new LoginPage(this.page);
   }
 
-  getLoginPage():LoginPage {
+  getLoginPage(): LoginPage {
     return this.loginPage;
   }
 }
