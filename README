@@ -1,0 +1,45 @@
+# Playwright + TypeScript + Cucumber BDD Automation Framework
+
+This repository contains an end-to-end test automation framework built using **Playwright**, **TypeScript**, and **Cucumber**. It allows you to write readable, maintainable, and scalable tests with a BDD (Behavior-Driven Development) approach.
+
+## Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- **Node.js** (v16 or later) - [Install Node.js](https://nodejs.org/)
+- **npm** (Node Package Manager) - npm comes with Node.js
+- **Playwright** - Web automation library
+- **Cucumber** - BDD testing framework
+
+## Installation
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/aravind-selvakumar-777/Playwright_Cucumber_BDD_Typescript.git
+    cd Playwright_Cucumber_BDD_Typescript
+    ```
+
+2. Install dependencies:
+
+    ```bash
+    npm install
+    ```
+
+3. Playwright requires browser binaries. Install them by running:
+
+    ```bash
+    npx playwright install --with-deps
+    ```
+Currently we only use chrome browser for execution.
+
+## Running Tests
+
+To run the tests, simply execute the following command:
+```
+npx run test
+```
+By default, it runs in Headless mode. If you want to view the browser exection, set option {headless:false} under src/support/world.ts :
+Replace line 11 with: this.browser = await chromium.launch({ headless: true });
+
+Happy Testing :)
