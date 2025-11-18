@@ -1,42 +1,32 @@
 name: CI - Playwright Cucumber TS Tests
-
 on:
   push:
-    branches: [ "main" ]
-
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 jobs:
   test:
-    runs-on: ubuntu-latest  # Using Ubuntu, which works well with Playwright Docker images
-
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
     env:
       NODE_ENV: "ci"
       NAME: ${{ secrets.NAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
       BASE_URL: ${{ secrets.BASE_URL }}
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      - name: Upgrade npm
-        run: npm install -g npm@latest
-
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
-
-      - name: Pull Playwright Docker Image
-        run: |
-          docker pull mcr.microsoft.com/playwright:v1.56.1-noble  # Ensure the image is pulled before use
-
-      - name: Install dependencies and run tests in Playwright Docker
-        run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.56.1-noble npm ci  # Install dependencies inside Docker container
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace mcr.microsoft.com/playwright:v1.56.1-noble npm run test  # Run tests inside Docker container
-
-      - name: Upload Test Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: test-results
-          retention-days: 14
+    - uses: actions/checkout@v5
+    - uses: actions/setup-node@v5
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run tests
+      run: npm run test
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: test-report
+        path: test-results/
+        retention-days: 10
