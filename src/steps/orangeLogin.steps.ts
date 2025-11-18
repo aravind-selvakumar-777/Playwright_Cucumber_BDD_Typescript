@@ -19,6 +19,7 @@ When('clicks on the login button', async function (this: CustomWorld) {
 
 Then('the user should be redirected to the dashboard page', async function (this: CustomWorld) {
   const loginPage = new LoginPage(this.page);
+  await loginPage.waitForDashboard();
   const url = await loginPage.getCurrentURL();
   expect(url).toContain('dashboard');
 });
