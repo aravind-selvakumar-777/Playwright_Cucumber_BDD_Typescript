@@ -51,3 +51,14 @@ Then(
     expect(passErr).toEqual(error);
   }
 );
+
+When('the user selects the Logout option', async function (this: CustomWorld) {
+  const userMenu = this.pageObjectManager.getUserMenu();
+  await userMenu.clickUserMenuItem('logout');
+});
+
+Then('the user should be redirected to the login page', async function (this: CustomWorld) {
+  const loginPage = this.pageObjectManager.getLoginPage();
+  const url = await loginPage.getCurrentURL();
+  expect(url).toContain('login');
+});

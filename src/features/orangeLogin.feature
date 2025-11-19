@@ -18,3 +18,10 @@ Feature: Login functionality on OrangeHRM
     When the user leaves the username and password fields blank
     And clicks on the login button
     Then an error message "Required" should be displayed under username and password
+
+  Scenario: User is able to logout of the application
+    When the user enters a valid username and password
+    And clicks on the login button
+    Then the user should be redirected to the dashboard page
+    When the user selects the Logout option
+    Then the user should be redirected to the login page
