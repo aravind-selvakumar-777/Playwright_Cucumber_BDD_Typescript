@@ -53,12 +53,19 @@ Then(
 );
 
 When('the user selects the Logout option', async function (this: CustomWorld) {
-  const userMenu = this.pageObjectManager.getUserMenu();
-  await userMenu.clickUserMenuItem('logout');
+  const loginPage = this.pageObjectManager.getLoginPage();
+  await loginPage.userMenu.clickUserMenuItem('logout');
 });
 
 Then('the user should be redirected to the login page', async function (this: CustomWorld) {
   const loginPage = this.pageObjectManager.getLoginPage();
   const url = await loginPage.getCurrentURL();
   expect(url).toContain('login');
+});
+
+Given('the user is logged into OrangeHRM', async function () {
+  const loginPage = this.pageObjectManager.getLoginPage();
+  await loginPage.fillUsernameAndPassword(config.username, config.password);
+  await loginPage.clickLoginButton();
+  await loginPage.waitForDashboard();
 });
