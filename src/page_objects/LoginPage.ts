@@ -1,5 +1,6 @@
 import { Page, Locator } from 'playwright';
 import { BasePage } from './BasePage';
+import { UserMenu } from './components/UserMenu';
 
 export class LoginPage extends BasePage {
   page: Page;
@@ -10,9 +11,11 @@ export class LoginPage extends BasePage {
   missingUsernameErrorMessage: Locator;
   missingPasswordErrorMessage: Locator;
   dashboardHeading: Locator;
+  userMenu: UserMenu;
   constructor(page: Page) {
     super(page);
     this.page = page;
+    this.userMenu = new UserMenu(this.page);
     this.usernameTextBox = this.page.getByPlaceholder('Username');
     this.passwordTextBox = this.page.getByPlaceholder('Password');
     this.LoginButton = this.page.getByRole('button', { name: 'Login' });

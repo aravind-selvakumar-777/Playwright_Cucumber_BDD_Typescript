@@ -28,9 +28,9 @@ export class BasePage {
     }
   }
 
-    async clickButton(name: string) {
+  async clickButton(name: string) {
     try {
-      const locator=this.page.getByRole('button',{name:name});
+      const locator = this.page.getByRole('button', { name: name });
       await locator.waitFor({ state: 'visible' });
       await locator.click();
     } catch (error) {
