@@ -11,6 +11,7 @@ export class BasePage {
   async fillText(locator: Locator, value: string) {
     try {
       await locator.waitFor({ state: 'visible' });
+      await locator.fill(''); // TO ENSURE THE FIELD IS ALWAYS EMPTY
       await locator.fill(value);
     } catch (error) {
       console.error(`Failed to fill text into target: ${locator}`, error);
