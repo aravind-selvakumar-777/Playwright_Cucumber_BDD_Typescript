@@ -1,21 +1,21 @@
 import { Page } from 'playwright';
 import { LoginPage } from './LoginPage';
-import { UserMenu } from './components/UserMenu';
+import { RecruitmentPage } from './RecruitmentPage';
 
 export class PageObjectManager {
   page: Page;
   loginPage: LoginPage;
-  userMenu: UserMenu;
+  recruitmentPage: RecruitmentPage;
   constructor(page: Page) {
     this.page = page;
     this.loginPage = new LoginPage(this.page);
-    this.userMenu = new UserMenu(this.page);
+    this.recruitmentPage = new RecruitmentPage(this.page);
   }
 
   getLoginPage(): LoginPage {
     return this.loginPage;
   }
-  getUserMenu(): UserMenu {
-    return this.userMenu;
+  getRecruitmentPage(): RecruitmentPage {
+    return this.recruitmentPage;
   }
 }
