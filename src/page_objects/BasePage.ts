@@ -2,9 +2,22 @@ import { Locator, Page } from 'playwright';
 
 export class BasePage {
   page: Page;
+  pageTitle: Locator;
+
   constructor(page: Page) {
     this.page = page;
+    this.pageTitle = this.page.getByRole('heading', { level: 6 });
   }
+  async fillText(locator: Locator, value: string) {
+    try {
+      await locator.waitFor({ state: 'visible' });
+      await locator.fill(value);
+    } catch (error) {
+      console.error(`Failed to fill text into target: ${locator}`, error);
+      throw error;
+    }
+  }
+
   async click(locator: Locator) {
     try {
       await locator.waitFor({ state: 'visible' });
@@ -14,9 +27,22 @@ export class BasePage {
       throw error;
     }
   }
+
+    async clickButton(name: string) {
+    try {
+      const locator=this.page.getByRole('button',{name:name});
+      await locator.waitFor({ state: 'visible' });
+      await locator.click();
+    } catch (error) {
+      console.error(`Failed to click on button: ${name}`, error);
+      throw error;
+    }
+  }
+
   async wait(locator: Locator) {
     await locator.waitFor({ state: 'visible', timeout: 5000 });
   }
+
   async getText(locator: Locator, elementName = 'element'): Promise<string> {
     try {
       await locator.waitFor({ state: 'visible', timeout: 5000 });
@@ -29,5 +55,9 @@ export class BasePage {
     } catch (error) {
       throw new Error(`Failed to get text from ${elementName}: ${(error as Error).message}`);
     }
+  }
+
+  async getPageTitle() {
+    return this.getText(this.pageTitle);
   }
 }
