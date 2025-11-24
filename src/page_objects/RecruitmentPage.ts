@@ -15,6 +15,10 @@ export class RecruitmentPage extends BasePage {
   statusMessage: Locator;
   firstNameTableEntry: Locator;
   candidatesTab: Locator;
+  candidateTableRow: Locator;
+  editToggleButton: Locator;
+  contactNumberTextBox: Locator;
+  recruitmentStatus: Locator;
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -35,6 +39,10 @@ export class RecruitmentPage extends BasePage {
       .nth(2)
       .locator('div');
     this.candidatesTab = this.page.getByRole('link', { name: 'Candidates' });
+    this.candidateTableRow = this.page.locator('.oxd-table-body').getByRole('row');
+    this.editToggleButton = this.page.getByLabel('Edit');
+    this.contactNumberTextBox = this.page.getByPlaceholder('Type here').nth(1);
+    this.recruitmentStatus = this.page.locator('.orangehrm-recruitment-status p');
   }
 
   async clickAddButton() {
@@ -74,5 +82,35 @@ export class RecruitmentPage extends BasePage {
   async isNamePresent(name: string): Promise<boolean> {
     const element = this.page.getByText(name).first();
     return (await element.isEnabled()) && (await element.isVisible());
+  }
+
+  async findAndClickCandidate(candidateName: string) {
+    const count = await this.candidateTableRow.count();
+    for (let i = 0; i < count; i++) {
+      const name = await this.getText(this.candidateTableRow.nth(i).getByRole('cell').nth(2));
+      if (name.split('  ').join(' ') === candidateName) {
+        //REMOVING THE EXTRA SPACE BROUGHT FOR MIDDLENAME
+        await this.candidateTableRow.nth(i).getByRole('cell').locator('i.bi-eye-fill').click(); //LOCATOR FOR THE EYE-BUTTON
+        break;
+      }
+    }
+    await this.page.waitForLoadState('networkidle')
+  }
+
+  async clickEditToggleButton() {
+    await this.click(this.editToggleButton);
+  }
+
+  async updateContactNumber(value: string) {
+    await this.fillText(this.contactNumberTextBox, value);
+  }
+
+  async getContactNumber(): Promise<string> {
+    return await this.contactNumberTextBox.inputValue(); //Use input value to retrieve value from input textboxes.
+  }
+
+  async getStatus(): Promise<string> {
+    const fullText = await this.getText(this.recruitmentStatus);
+    return fullText.split(' ')[1]; // Added to fetch only the status. It is like Status: status.
   }
 }

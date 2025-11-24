@@ -1,4 +1,4 @@
-import { Then, When } from '@cucumber/cucumber';
+import { Given, Then, When } from '@cucumber/cucumber';
 import { CustomWorld } from '../support/world';
 import { expect } from 'playwright/test';
 
@@ -58,5 +58,44 @@ Then(
     const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
     await recruitmentPage.clickCandidatesbutton();
     expect(await recruitmentPage.isNamePresent(fullName)).toBeTruthy();
+  }
+);
+
+When(
+  'the user finds and selects the candidate {string}',
+  async function (this: CustomWorld, fullName) {
+    const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+    await recruitmentPage.findAndClickCandidate(fullName);
+  }
+);
+
+When('the user clicks {string}', async function (this: CustomWorld, buttonName) {
+  const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+  await recruitmentPage.clickButton(buttonName);
+});
+
+Then('the candidate status should update to {string}', async function (this: CustomWorld, status) {
+  const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+  expect(await recruitmentPage.getStatus()).toEqual(status);
+});
+
+Given('the user clicks the Edit toggle button', async function (this: CustomWorld) {
+  const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+  await recruitmentPage.clickEditToggleButton();
+});
+
+Given(
+  'the user updates the contact number to {string}',
+  async function (this: CustomWorld, contactNumber) {
+    const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+    await recruitmentPage.updateContactNumber(contactNumber);
+  }
+);
+
+Then(
+  'the updated contact number {string} should be displayed in the candidate profile',
+  async function (this: CustomWorld, contactNumber) {
+    const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+    expect(await recruitmentPage.getContactNumber()).toEqual(contactNumber);
   }
 );
