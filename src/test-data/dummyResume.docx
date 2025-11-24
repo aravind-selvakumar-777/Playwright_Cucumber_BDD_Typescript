@@ -1,0 +1,117 @@
+ALEXANDER REYNOLDS
+
+📍 Austin, TX
+📞 (512) 894-2217
+📧 alex.reynolds.qa@gmail.com
+
+SUMMARY
+
+Senior QA Lead with 10+ years of experience driving end-to-end quality strategy, leading distributed QA teams, and building scalable automation frameworks. Expert in Playwright, Cypress, Selenium, REST API testing, CI/CD integration, and shift-left quality initiatives. Known for transforming legacy manual processes into modern, automation-first pipelines that reduce release cycles and improve product reliability.
+
+CORE SKILLS
+
+Test Leadership & Strategy
+
+Automation Framework Design
+
+Playwright | TypeScript | JavaScript | Java | Python
+
+API Testing (Postman, REST Assured)
+
+CI/CD (GitHub Actions, Jenkins, Azure DevOps)
+
+Test Planning, Estimation & Risk Analysis
+
+Performance & Reliability Testing
+
+BDD (Cucumber / Gherkin)
+
+Cloud & Container Testing (AWS, Docker, Kubernetes)
+
+Agile / Scrum / SAFe
+
+PROFESSIONAL EXPERIENCE
+Senior QA Lead — Finexus Digital Solutions, Austin, TX
+
+Jan 2021 – Present
+
+Lead a team of 9 QA engineers spanning automation, manual testing, and performance.
+
+Designed a TypeScript + Playwright automation framework reducing regression cycle from 4 days to 6 hours.
+
+Implemented API validation using Postman + Newman integrated into GitHub Actions.
+
+Developed quality KPIs for release gates, resulting in 45% fewer production defects.
+
+Created comprehensive test strategies for complex payments, authentication, and security modules.
+
+Championed shift-left practices — embedded QA into early stages of design & grooming.
+
+Mentored engineers into automation-focused roles through training and pair testing sessions.
+
+QA Lead — BrightWave Tech, Denver, CO
+
+2017 – 2020
+
+Managed QA for a large-scale B2B SaaS platform used by 20k+ enterprise clients.
+
+Migrated legacy Selenium tests to a modern Cypress framework, improving test stability by 60%.
+
+Set up automated performance tests using k6 and integrated them into the CI pipeline.
+
+Developed test data strategies using dynamic data generation and environment-based configs.
+
+Collaborated with product and dev leads to define acceptance criteria and release quality standards.
+
+Senior QA Engineer — NovaSoft Systems, Dallas, TX
+
+2014 – 2017
+
+Designed end-to-end automation suites covering UI, API, and database validations.
+
+Implemented a data-driven automation framework in Java + TestNG.
+
+Reduced bug turnaround time by 30% by improving defect triage and reporting flow.
+
+Conducted root-cause analysis for recurring production issues and created preventive tests.
+
+EDUCATION
+
+B.S. Computer Science
+University of Colorado Boulder
+2014
+
+CERTIFICATIONS
+
+ISTQB Advanced Test Manager
+
+Certified Scrum Master (CSM)
+
+AWS Cloud Practitioner
+
+Postman API Automation Expert
+
+TOOLS & TECHNOLOGIES
+
+Playwright · Cypress · Selenium · Jest · Mocha · TestNG
+Postman · Newman · REST Assured
+Docker · AWS · GitHub Actions · Azure DevOps
+JIRA · Confluence · TestRail · qTest
+MySQL · MongoDB · Redis
+K6 · JMeter
+
+ACHIEVEMENTS
+
+Built automation frameworks used across 3 enterprise teams, saving 800+ engineering hours yearly.
+
+Introduced contract testing using Pact, preventing API-breaking changes pre-release.
+
+Improved cross-team collaboration by introducing QA kickoff meetings for major features.
+
+PERSONAL PROJECTS
+
+Quality Engineering Toolkit (Open Source)
+A collection of Playwright utilities, API wrappers, and CI templates used by multiple QA teams.
+
+Synthetic Test Data Generator
+Node.js tool that generates dynamic test data for UI + API tests.
