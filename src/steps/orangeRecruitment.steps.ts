@@ -2,9 +2,9 @@ import { Given, Then, When } from '@cucumber/cucumber';
 import { CustomWorld } from '../support/world';
 import { expect } from 'playwright/test';
 
-When('I click on Recruitment menu', async function (this: CustomWorld) {
+When('I click on {string} menu', async function (this: CustomWorld, menuName) {
   const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
-  await recruitmentPage.sideMenu.clickSideMenuItem('recruitment');
+  await recruitmentPage.sideMenu.clickSideMenuItem(menuName);
 });
 Then('I should be in the {string} page', async function (this: CustomWorld, title) {
   const recruitmentPage = this.pageObjectManager.getRecruitmentPage();

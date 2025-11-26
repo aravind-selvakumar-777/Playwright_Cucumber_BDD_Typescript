@@ -94,7 +94,7 @@ export class RecruitmentPage extends BasePage {
         break;
       }
     }
-    await this.page.waitForLoadState('networkidle')
+    await this.page.waitForLoadState('networkidle');
   }
 
   async clickEditToggleButton() {

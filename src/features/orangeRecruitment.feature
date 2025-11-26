@@ -1,9 +1,9 @@
 @recruitment
 Feature: To handle the functionalities present in Recruitment page.
-  Background: Goto website
+  Background: Goto website and login
     Given the user is on the OrangeHRM login page
     Given the user is logged into OrangeHRM
-    And I click on Recruitment menu
+    And I click on "recruitment" menu
 
   Scenario: User navigates to the Recruitment page
     Then I should be in the "Recruitment" page
