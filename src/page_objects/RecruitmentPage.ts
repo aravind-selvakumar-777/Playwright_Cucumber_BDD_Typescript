@@ -1,6 +1,7 @@
 import { Locator, Page } from 'playwright';
 import { SideMenu } from './components/SideMenu';
 import { BasePage } from './BasePage';
+import { expect } from 'playwright/test';
 
 export class RecruitmentPage extends BasePage {
   page: Page;
@@ -19,6 +20,10 @@ export class RecruitmentPage extends BasePage {
   editToggleButton: Locator;
   contactNumberTextBox: Locator;
   recruitmentStatus: Locator;
+  vacancyNameTextField: Locator;
+  jobTitleDropdownBox: Locator;
+  employeeNameTextBox: any;
+  searchDropdownBox: Locator;
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -43,6 +48,10 @@ export class RecruitmentPage extends BasePage {
     this.editToggleButton = this.page.getByLabel('Edit');
     this.contactNumberTextBox = this.page.getByPlaceholder('Type here').nth(1);
     this.recruitmentStatus = this.page.locator('.orangehrm-recruitment-status p');
+    this.vacancyNameTextField = this.page.locator('input').nth(1);
+    this.jobTitleDropdownBox = this.page.locator('.oxd-select-text').first();
+    this.employeeNameTextBox = this.page.getByPlaceholder('Type for hints...');
+    this.searchDropdownBox = this.page.getByRole('listbox');
   }
 
   async clickAddButton() {
@@ -59,10 +68,6 @@ export class RecruitmentPage extends BasePage {
     await this.fillText(this.emailTextBox, email);
   }
 
-  dropdownOptionLocator(value: string): Locator {
-    return this.page.getByRole('option', { name: value });
-  }
-
   async selectVacancyDropdown(value: string) {
     await this.click(this.vacancyDropdownBox);
     await this.click(this.dropdownOptionLocator(value));
@@ -73,6 +78,7 @@ export class RecruitmentPage extends BasePage {
   }
 
   async getStatusPopMessage(): Promise<string> {
+    await this.wait(this.statusMessage);
     return await this.getText(this.statusMessage);
   }
 
@@ -90,7 +96,7 @@ export class RecruitmentPage extends BasePage {
       const name = await this.getText(this.candidateTableRow.nth(i).getByRole('cell').nth(2));
       if (name.split('  ').join(' ') === candidateName) {
         //REMOVING THE EXTRA SPACE BROUGHT FOR MIDDLENAME
-        await this.candidateTableRow.nth(i).getByRole('cell').locator('i.bi-eye-fill').click(); //LOCATOR FOR THE EYE-BUTTON
+        await this.click(this.candidateTableRow.nth(i).getByRole('cell').locator('i.bi-eye-fill')); //LOCATOR FOR THE EYE-BUTTON
         break;
       }
     }
@@ -110,7 +116,49 @@ export class RecruitmentPage extends BasePage {
   }
 
   async getStatus(): Promise<string> {
+    await this.wait(this.recruitmentStatus);
     const fullText = await this.getText(this.recruitmentStatus);
     return fullText.split(' ')[1]; // Added to fetch only the status. It is like Status: status.
+  }
+
+  async clickOnVacancies(text: string) {
+    await this.click(this.page.getByText(text));
+    await this.page.waitForLoadState('networkidle');
+  }
+
+  async addName(name: string) {
+    await this.fillText(this.vacancyNameTextField, name);
+  }
+
+  async selectJobTitleDropdown(value: string) {
+    await this.click(this.jobTitleDropdownBox);
+    await this.click(this.dropdownOptionLocator(value));
+  }
+
+  async searchforHiringmanagerByName(Name: string) {
+    ///MIGHT HAVE TO MOVE TO BASE PAGE
+    const firstName = Name.split(' ')[0];
+    await this.employeeNameTextBox.pressSequentially(firstName);
+    await this.wait(this.searchDropdownBox);
+    await expect(this.searchDropdownBox).not.toHaveText('Searching....'); // Added THIS AS A CUSTOM WAIT
+    for (let i = 0; i < (await this.searchDropdownBox.count()); i++) {
+      const fullName = await this.getText(this.searchDropdownBox.nth(i));
+      if (fullName?.split('  ').join(' ') === Name) {
+        this.click(this.searchDropdownBox.nth(i));
+        break;
+      }
+    }
+  }
+  async checkIfNewVacancyIsPresent(candidateName: string): Promise<boolean> {
+    const count = await this.candidateTableRow.count();
+    let isNamePresent = false;
+    for (let i = 0; i < count; i++) {
+      const name = await this.getText(this.candidateTableRow.nth(i).getByRole('cell').nth(2));
+      if (name.split('  ').join(' ') === candidateName) {
+        isNamePresent = true;
+        break;
+      }
+    }
+    return isNamePresent;
   }
 }

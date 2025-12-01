@@ -99,3 +99,34 @@ Then(
     expect(await recruitmentPage.getContactNumber()).toEqual(contactNumber);
   }
 );
+
+When('the user clicks on {string}', async function (this: CustomWorld, title) {
+  const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+  await recruitmentPage.clickOnVacancies(title);
+});
+
+When('selects {string} as the Job Title field', async function (this: CustomWorld, title) {
+  const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+  await recruitmentPage.selectJobTitleDropdown(title);
+});
+
+When(
+  'the enters {string} into the Hiring Manager field',
+  async function (this: CustomWorld, fullName) {
+    const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+    await recruitmentPage.searchforHiringmanagerByName(fullName);
+  }
+);
+
+Then(
+  'the vacancy {string} should appear in the vacancies list',
+  async function (this: CustomWorld, fullName) {
+    const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+    expect(await recruitmentPage.checkIfNewVacancyIsPresent(fullName)).toBeTruthy();
+  }
+);
+
+When('adds {string} in Name field', async function (this: CustomWorld, name) {
+  const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+  await recruitmentPage.addName(name);
+});

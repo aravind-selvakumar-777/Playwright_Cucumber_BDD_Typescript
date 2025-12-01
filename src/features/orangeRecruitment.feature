@@ -8,6 +8,18 @@ Feature: To handle the functionalities present in Recruitment page.
   Scenario: User navigates to the Recruitment page
     Then I should be in the "Recruitment" page
 
+Scenario: Add a new job vacancy
+  When the user clicks on "Vacancies"
+  When the user clicks the "Add" button
+  And adds "Pinnacle QA Lead" in Name field
+  And selects "QA Lead" as the Job Title field
+  And the enters "MARTIN THOMAS" into the Hiring Manager field
+  And the user clicks the "Save" button
+  And I click on "recruitment" menu
+  And the user clicks on "Vacancies"
+  Then the vacancy "QA Lead" should appear in the vacancies list
+
+
   Scenario: Successfully add a new candidate
     When the user clicks on the Add button
     And the user enters candidate first name "ALEXANDER" and last name "REYNOLDS"
@@ -18,6 +30,7 @@ Feature: To handle the functionalities present in Recruitment page.
     Then a success message should be displayed "Successfully Saved"
     And the new candidate "ALEXANDER REYNOLDS" should appear in the candidate list
 
+  
   Scenario: Shortlist a candidate from the candidate list
     When the user finds and selects the candidate "ALEXANDER REYNOLDS"
     And the user clicks the "Shortlist" button
