@@ -1,4 +1,4 @@
-@orange
+@login
 Feature: Login functionality on OrangeHRM
 
   Background:
