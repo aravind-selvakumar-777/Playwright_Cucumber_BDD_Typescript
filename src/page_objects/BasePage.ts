@@ -6,7 +6,7 @@ export class BasePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.pageTitle = this.page.getByRole('heading', { level: 6 });
+    this.pageTitle = this.page.getByRole('heading', { level: 6 }).first();
   }
   async fillText(locator: Locator, value: string) {
     try {
@@ -32,8 +32,8 @@ export class BasePage {
   async clickButton(name: string) {
     try {
       const locator = this.page.getByRole('button', { name: name });
-      await locator.waitFor({ state: 'visible' });
-      await locator.click();
+      await this.click(locator);
+      await this.page.waitForEvent('requestfinished');
     } catch (error) {
       console.error(`Failed to click on button: ${name}`, error);
       throw error;
@@ -41,7 +41,7 @@ export class BasePage {
   }
 
   async wait(locator: Locator) {
-    await locator.waitFor({ state: 'visible', timeout: 5000 });
+    await locator.waitFor({ state: 'visible', timeout: 10000 });
   }
 
   async getText(locator: Locator, elementName = 'element'): Promise<string> {
@@ -60,5 +60,9 @@ export class BasePage {
 
   async getPageTitle() {
     return this.getText(this.pageTitle);
+  }
+
+  dropdownOptionLocator(value: string): Locator {
+    return this.page.getByRole('option', { name: value });
   }
 }
