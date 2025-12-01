@@ -22,6 +22,8 @@ jobs:
       run: npm ci --verbose
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Run pre setup for tests
+      run: npm run preTest
     - name: Run tests
       run: npm run test
     - uses: actions/upload-artifact@v4
