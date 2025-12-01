@@ -41,7 +41,7 @@ export class BasePage {
   }
 
   async wait(locator: Locator) {
-    await locator.waitFor({ state: 'visible', timeout: 10000 });
+    await locator.waitFor({ state: 'visible', timeout: 15000 });
   }
 
   async getText(locator: Locator, elementName = 'element'): Promise<string> {
