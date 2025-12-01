@@ -1,4 +1,5 @@
-Feature: To contain the scenarios related to directory page of Orange HRM
+@directory
+Feature: To contain the scenarios related to directory page of Orange HRM. 
 
     Background: Goto website and login
         Given the user is on the OrangeHRM login page
@@ -13,4 +14,10 @@ Feature: To contain the scenarios related to directory page of Orange HRM
 
         Examples:
             | Employee        |
-            | Yuvaraj Basenoo |
+            | MARTIN THOMAS |
+
+
+    Scenario: User searches for employees by job title
+        When the user selects "MONSTER EXCAVATOR" from the Job Title dropdown
+        And the user clicks the "Search" button
+        Then the system should display all employees with the job title "MONSTER EXCAVATOR"

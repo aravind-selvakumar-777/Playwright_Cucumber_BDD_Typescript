@@ -17,3 +17,19 @@ Then(
     expect(await directoryPage.getDirectoryName()).toEqual(employeeName);
   }
 );
+
+When(
+  'the user selects {string} from the Job Title dropdown',
+  async function (this: CustomWorld, title) {
+    const directoryPage = this.pageObjectManager.getDirectoryPage();
+    await directoryPage.selectJobTtileDropdown(title);
+  }
+);
+
+Then(
+  'the system should display all employees with the job title {string}',
+  async function (this: CustomWorld, title) {
+    const directoryPage = this.pageObjectManager.getDirectoryPage();
+    expect(await directoryPage.assertHavingSameTitle(title)).toBeTruthy();
+  }
+);
