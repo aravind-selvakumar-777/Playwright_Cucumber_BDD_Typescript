@@ -79,7 +79,9 @@ export class RecruitmentPage extends BasePage {
 
   async getStatusPopMessage(): Promise<string> {
     await this.wait(this.statusMessage);
-    return await this.getText(this.statusMessage);
+    const status = await this.getText(this.statusMessage);
+    await this.statusMessage.waitFor({ state: 'hidden' });
+    return status;
   }
 
   async clickCandidatesbutton() {

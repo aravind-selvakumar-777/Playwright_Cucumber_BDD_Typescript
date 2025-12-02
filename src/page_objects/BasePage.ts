@@ -31,7 +31,7 @@ export class BasePage {
 
   async clickButton(name: string) {
     try {
-      const locator = this.page.getByRole('button', { name: name });
+      const locator = this.page.getByRole('button', { name: name }).first();
       await this.click(locator);
       await this.page.waitForEvent('requestfinished');
     } catch (error) {
@@ -42,6 +42,7 @@ export class BasePage {
 
   async wait(locator: Locator) {
     await locator.waitFor({ state: 'visible', timeout: 15000 });
+    await locator.waitFor({ state: 'attached', timeout: 15000 });
   }
 
   async getText(locator: Locator, elementName = 'element'): Promise<string> {
