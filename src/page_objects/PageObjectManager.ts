@@ -4,6 +4,7 @@ import { RecruitmentPage } from './RecruitmentPage';
 import { DirectoryPage } from './DirectoryPage';
 import { PIMPage } from './PIMPage';
 import { AdminPage } from './AdminPage';
+import { TimePage } from './TimePage';
 
 export class PageObjectManager {
   page: Page;
@@ -12,6 +13,7 @@ export class PageObjectManager {
   directoryPage: DirectoryPage;
   pimPage: PIMPage;
   adminPage: AdminPage;
+  timePage: TimePage;
   constructor(page: Page) {
     this.page = page;
     this.loginPage = new LoginPage(this.page);
@@ -19,6 +21,7 @@ export class PageObjectManager {
     this.directoryPage = new DirectoryPage(this.page);
     this.pimPage = new PIMPage(this.page);
     this.adminPage = new AdminPage(this.page);
+    this.timePage = new TimePage(this.page);
   }
 
   getLoginPage(): LoginPage {
@@ -35,5 +38,8 @@ export class PageObjectManager {
   }
   getAdminPage(): AdminPage {
     return this.adminPage;
+  }
+  getTimePage(): TimePage {
+    return this.timePage;
   }
 }
