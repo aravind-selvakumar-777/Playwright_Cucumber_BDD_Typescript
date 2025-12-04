@@ -26,7 +26,7 @@ Then('status should show as {string}', async function (this: CustomWorld, status
   await expect(timePage.getStatusLocator()).toContainText(status);
 });
 
-When('adds {string} in Name field of the popup box',async function(this: CustomWorld,text){
+When('adds {string} in Name field of the popup box', async function (this: CustomWorld, text) {
   const timePage = this.pageObjectManager.getTimePage();
-  await timePage.fillInputBoxAndSave(text)
-})
+  await timePage.fillInputBoxAndSave(text);
+});
