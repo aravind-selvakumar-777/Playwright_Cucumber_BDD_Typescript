@@ -24,7 +24,7 @@ Scenario: Add a new job vacancy
     When the user clicks on the Add button
     And the user enters candidate first name "ALEXANDER" and last name "REYNOLDS"
     And the user enters email "alex.reynolds.qa@gmail.com"
-    And the user selects a job vacancy "Senior QA Lead"
+    And the user selects a job vacancy "MONSTER EXCAVATOR SPECAILIST"
     And the user uploads a resume file
     And the user clicks the "Save" button
     Then a success message should be displayed "Successfully Saved"
