@@ -1,4 +1,4 @@
-import { Then } from '@cucumber/cucumber';
+import { Then, When } from '@cucumber/cucumber';
 import { CustomWorld } from '../support/world';
 import { expect } from 'playwright/test';
 
@@ -25,3 +25,8 @@ Then('status should show as {string}', async function (this: CustomWorld, status
   const timePage = this.pageObjectManager.getTimePage();
   await expect(timePage.getStatusLocator()).toContainText(status);
 });
+
+When('adds {string} in Name field of the popup box',async function(this: CustomWorld,text){
+  const timePage = this.pageObjectManager.getTimePage();
+  await timePage.fillInputBoxAndSave(text)
+})

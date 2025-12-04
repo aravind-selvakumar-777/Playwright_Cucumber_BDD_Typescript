@@ -10,14 +10,16 @@ Feature: To contain the scenarios related to time page of Orange HRM.
         Then I should be in the "Time" page
 
     Scenario: User searches for an employee timesheet with no records
-        When the user enters "MARTIN THOMAS" into the Employee Name field
+        Given I should be in the "Time" page
+        When the user enters "MARTIN THOMAS" into the Name field
         And the user clicks the "View" button
         Then the system should display the timesheet for "MARTIN THOMAS"
         And "No Timesheets Found" alert message should be displayed
 
 
-    Scenario: Add timesheet for current week for the User and submit an empty timesheet
-        When the user enters "MARTIN THOMAS" into the Employee Name field
+    Scenario: Add timesheet for an employee current week for the User and submit an empty timesheet
+        Given I should be in the "Time" page
+        When the user enters "MARTIN THOMAS" into the Name field
         And the user clicks the "View" button
         Then the system should display the timesheet for "MARTIN THOMAS"
         When the user clicks the "Create Timesheet" button
@@ -25,11 +27,34 @@ Feature: To contain the scenarios related to time page of Orange HRM.
         And an empty timesheet with message "No Records Found" should be present
         When the user clicks the "Submit" button
         Then a success message should be displayed "Timesheet Submitted"
-@tt
-    Scenario: Approve the submitted timesheet
-        When the user enters "MARTIN THOMAS" into the Employee Name field
+
+    Scenario: Approve the submitted employee timesheet
+        Given I should be in the "Time" page
+        When the user enters "MARTIN THOMAS" into the Name field
         And the user clicks the "View" button
         Then the system should display the timesheet for "MARTIN THOMAS"
         When the user clicks the "Approve" button
         Then status should show as "Approved"
 
+    Scenario: Add a customer
+        Given I should be in the "Time" page
+        When the user clicks on "Project Info" and selects "Customers"
+        And the user clicks the "Add" button
+        And adds "KINGSLAYER CORPs" in Name field
+        And the user clicks the "Save" button
+        Then a success message should be displayed "Successfully Saved"
+        And "KINGSLAYER CORPs" should appear in the first column of the list
+
+    Scenario: Add a project with activities for the customer
+        Given I should be in the "Time" page
+        When the user clicks on "Project Info" and selects "Projects"
+        And the user clicks the "Add" button
+        And adds "MONSTER SLAYINGQQ3" in Name field
+        And the user enters "KINGSLAYER CORPs" into the Name field
+        And the user clicks the "Save" button
+        Then a success message should be displayed "Successfully Saved"
+        When the user clicks the "Add" button
+        And adds "EXPANSION" in Name field of the popup box
+        Then "EXPANSION" should appear in the first column of the list
+        When the user clicks on "Project Info" and selects "Projects"
+        Then "MONSTER SLAYINGQQ3" should appear in the second column of the list
