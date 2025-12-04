@@ -23,5 +23,5 @@ Then(
 
 Then('status should show as {string}', async function (this: CustomWorld, status) {
   const timePage = this.pageObjectManager.getTimePage();
-  expect(await timePage.getStatus()).toEqual(status);
+  await expect(timePage.getStatusLocator()).toContainText(status);
 });

@@ -25,7 +25,7 @@ Feature: To contain the scenarios related to time page of Orange HRM.
         And an empty timesheet with message "No Records Found" should be present
         When the user clicks the "Submit" button
         Then a success message should be displayed "Timesheet Submitted"
-
+@tt
     Scenario: Approve the submitted timesheet
         When the user enters "MARTIN THOMAS" into the Employee Name field
         And the user clicks the "View" button

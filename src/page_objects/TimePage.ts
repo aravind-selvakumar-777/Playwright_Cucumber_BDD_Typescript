@@ -30,8 +30,7 @@ export class TimePage extends BasePage {
     return await this.getText(this.noRecordTableLocator);
   }
 
-  async getStatus(): Promise<string> {
-    await this.wait(this.statusLocator);
-    return await this.getText(this.statusLocator);
+  getStatusLocator():Locator {
+    return this.statusLocator;
   }
 }
