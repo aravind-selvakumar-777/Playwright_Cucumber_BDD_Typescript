@@ -32,8 +32,11 @@ export class BasePage {
   async clickButton(name: string) {
     try {
       const locator = this.page.getByRole('button', { name: name }).first();
-      await this.click(locator);
-      await this.page.waitForEvent('requestfinished');
+      await Promise.all([
+        this.page.waitForEvent('requestfinished'),
+          this.click(locator)
+        ]
+      );
     } catch (error) {
       console.error(`Failed to click on button: ${name}`, error);
       throw error;
@@ -41,7 +44,7 @@ export class BasePage {
   }
 
   async wait(locator: Locator) {
-    await locator.waitFor({ state: 'visible'});
+    await locator.waitFor({ state: 'visible' });
   }
 
   async getText(locator: Locator, elementName = 'element'): Promise<string> {
