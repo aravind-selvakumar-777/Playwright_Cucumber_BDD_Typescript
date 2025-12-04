@@ -119,10 +119,10 @@ When(
 );
 
 Then(
-  'the vacancy {string} should appear in the vacancies list',
+  '{string} should appear in the second column of the list',
   async function (this: CustomWorld, fullName) {
     const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
-    expect(await recruitmentPage.checkIfNewVacancyIsPresent(fullName)).toBeTruthy();
+    expect(await recruitmentPage.checkIfNameIsPresentInSecondColumn(fullName)).toBeTruthy();
   }
 );
 

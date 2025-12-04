@@ -8,7 +8,7 @@ Feature: To contain the scenarios related to directory page of Orange HRM.
 
 
     Scenario Outline: User searches for an employee by name
-        When the user enters "<Employee>" into the Employee Name field
+        When the user enters "<Employee>" into the Name field
         And the user clicks the "Search" button
         Then the system should display results containing "<Employee>"
 

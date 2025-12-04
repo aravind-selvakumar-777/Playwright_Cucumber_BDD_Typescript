@@ -11,9 +11,9 @@ Given(
 );
 
 Then(
-  'the job title {string} should appear in the Job Titles list',
+  '{string} should appear in the first column of the list',
   async function (this: CustomWorld, title) {
     const adminPage = this.pageObjectManager.getAdminPage();
-    expect(await adminPage.checkIfNewTitleIsPresent(title)).toBeTruthy();
+    expect(await adminPage.checkIfNameIsPresentInFirstColumn(title)).toBeTruthy();
   }
 );

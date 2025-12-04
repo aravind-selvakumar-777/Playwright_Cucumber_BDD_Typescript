@@ -11,7 +11,7 @@ Feature: Contains pre-steps for other scenarios to generate test data
         And adds "<Title>" in Name field
         And the user clicks the "Save" button
         Then a success message should be displayed "Successfully Saved"
-        And the job title "<Title>" should appear in the Job Titles list
+        And "<Title>" should appear in the first column of the list
         Examples:
             | Title             |
             | MONSTER EXCAVATOR |
@@ -44,7 +44,7 @@ Feature: Contains pre-steps for other scenarios to generate test data
         And the user clicks the "Save" button
         When I click on "recruitment" menu
         And the user clicks on "Vacancies"
-        Then the vacancy "<JobTitle>" should appear in the vacancies list
+        Then "<JobTitle>" should appear in the second column of the list
         Examples:
             | Vacancyname                   | JobTitle              | 
             | MONSTER EXCAVATOR SPECAILIST  | MONSTER EXCAVATOR     |

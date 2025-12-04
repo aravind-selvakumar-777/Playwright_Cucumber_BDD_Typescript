@@ -3,7 +3,7 @@ import { CustomWorld } from '../support/world';
 import { expect } from 'playwright/test';
 
 When(
-  'the user enters {string} into the Employee Name field',
+  'the user enters {string} into the Name field',
   async function (this: CustomWorld, employeeName) {
     const directoryPage = this.pageObjectManager.getDirectoryPage();
     await directoryPage.searchByEmployeeName(employeeName);

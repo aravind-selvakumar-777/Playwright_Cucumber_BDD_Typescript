@@ -11,4 +11,4 @@ Scenario: Add a new job title
   And adds "Automation Test Engineer" in Name field
   And the user clicks the "Save" button
   Then a success message should be displayed "Successfully Saved"
-  And the job title "Automation Test Engineer" should appear in the Job Titles list
+  And "Automation Test Engineer" should appear in the first column of the list

@@ -151,7 +151,7 @@ export class RecruitmentPage extends BasePage {
       }
     }
   }
-  async checkIfNewVacancyIsPresent(candidateName: string): Promise<boolean> {
+  async checkIfNameIsPresentInSecondColumn(candidateName: string): Promise<boolean> {
     const count = await this.candidateTableRow.count();
     let isNamePresent = false;
     for (let i = 0; i < count; i++) {

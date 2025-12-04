@@ -24,7 +24,7 @@ export class AdminPage extends BasePage {
     await this.click(this.getSubMenuLocator(subMenuName));
     await this.page.waitForLoadState('networkidle');
   }
-  async checkIfNewTitleIsPresent(title: string): Promise<boolean> {
+  async checkIfNameIsPresentInFirstColumn(title: string): Promise<boolean> {
     await this.wait(this.candidateTableRow.last());
     await this.page.waitForLoadState('networkidle');
     const count = await this.candidateTableRow.count();

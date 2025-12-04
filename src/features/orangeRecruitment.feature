@@ -17,7 +17,7 @@ Scenario: Add a new job vacancy
   And the user clicks the "Save" button
   And I click on "recruitment" menu
   And the user clicks on "Vacancies"
-  Then the vacancy "QA Lead" should appear in the vacancies list
+  Then "QA Lead" should appear in the second column of the list
 
 
   Scenario: Successfully add a new candidate
