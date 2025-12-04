@@ -40,21 +40,21 @@ Feature: To contain the scenarios related to time page of Orange HRM.
         Given I should be in the "Time" page
         When the user clicks on "Project Info" and selects "Customers"
         And the user clicks the "Add" button
-        And adds "KINGSLAYER CORPs" in Name field
+        And adds "KINGSLAYER CORP" in Name field
         And the user clicks the "Save" button
         Then a success message should be displayed "Successfully Saved"
-        And "KINGSLAYER CORPs" should appear in the first column of the list
+        And "KINGSLAYER CORP" should appear in the first column of the list
 
     Scenario: Add a project with activities for the customer
         Given I should be in the "Time" page
         When the user clicks on "Project Info" and selects "Projects"
         And the user clicks the "Add" button
-        And adds "MONSTER SLAYINGQQ3" in Name field
-        And the user enters "KINGSLAYER CORPs" into the Name field
+        And adds "MONSTER SLAYING" in Name field
+        And the user enters "KINGSLAYER CORP" into the Name field
         And the user clicks the "Save" button
         Then a success message should be displayed "Successfully Saved"
         When the user clicks the "Add" button
         And adds "EXPANSION" in Name field of the popup box
         Then "EXPANSION" should appear in the first column of the list
         When the user clicks on "Project Info" and selects "Projects"
-        Then "MONSTER SLAYINGQQ3" should appear in the second column of the list
+        Then "MONSTER SLAYING" should appear in the second column of the list
