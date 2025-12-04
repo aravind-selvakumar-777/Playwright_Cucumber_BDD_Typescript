@@ -31,7 +31,8 @@ export class BasePage {
 
   async clickButton(name: string) {
     try {
-      const locator = this.page.getByRole('button', { name: name }).first();
+      // Changed it to REGEX since we want exact name matching only. With extra spaces, exact:true wont work.
+      const locator = this.page.locator('button', { hasText: new RegExp(`^\\s*${name.trim()}\\s*$`) }).first();
       await Promise.all([
         this.page.waitForEvent('requestfinished'),
           this.click(locator)
