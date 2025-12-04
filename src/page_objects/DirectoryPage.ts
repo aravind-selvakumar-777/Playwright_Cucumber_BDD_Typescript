@@ -12,7 +12,7 @@ export class DirectoryPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.page = page;
-    this.employeeNameTextBox = this.page.getByPlaceholder('Type for hints...');
+    this.employeeNameTextBox = this.page.getByPlaceholder('Type for hints...').first();
     this.searchDropdownBox = this.page.getByRole('listbox');
     this.directoryName = this.page.locator('.orangehrm-directory-card p').first();
     this.jobTitleDropDownBox = this.page.locator('.oxd-select-text').first();
