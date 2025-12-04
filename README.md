@@ -26,7 +26,7 @@ Used AI to generate readme :p.
 
 - [Node.js](https://nodejs.org/) v16+ -- For running TS
 - Visual Studio Code -- Code Editor
-- Goto https://opensource-demo.orangehrmlive.com to setup environment variables later.
+- Goto https://opensource-demo.orangehrmlive.com to setup environment variables later(Step 4 of Installation section).
 ---
 
 ## 🛠️ Installation
