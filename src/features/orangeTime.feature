@@ -58,3 +58,9 @@ Feature: To contain the scenarios related to time page of Orange HRM.
         Then "EXPANSION" should appear in the first column of the list
         When the user clicks on "Project Info" and selects "Projects"
         Then "MONSTER SLAYING" should appear in the second column of the list
+
+    Scenario: Verfiy if the timesheet period displayed is of current week
+        Given I should be in the "Time" page
+        When the user clicks on "Timesheets" and selects "my Timesheets"
+        And the user clicks the "Edit" button
+        Then the timesheet period must be of current week, monday to sunday

@@ -30,3 +30,11 @@ When('adds {string} in Name field of the popup box', async function (this: Custo
   const timePage = this.pageObjectManager.getTimePage();
   await timePage.fillInputBoxAndSave(text);
 });
+
+Then(
+  'the timesheet period must be of current week, monday to sunday',
+  async function (this: CustomWorld) {
+    const timePage = this.pageObjectManager.getTimePage();
+    expect(await timePage.getTimesheetPeriod()).toEqual(timePage.getCurrentWeekInTimesheetFormat());
+  }
+);
