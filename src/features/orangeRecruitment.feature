@@ -12,12 +12,12 @@ Scenario: Add a new job vacancy
   When the user clicks on "Vacancies"
   When the user clicks the "Add" button
   And adds "Pinnacle QA Lead" in Name field
-  And selects "QA Lead" as the Job Title field
+  And selects "FULL QA LEAD" as the Job Title field
   And the enters "MARTIN THOMAS" into the Hiring Manager field
   And the user clicks the "Save" button
   And I click on "recruitment" menu
   And the user clicks on "Vacancies"
-  Then "QA Lead" should appear in the second column of the list
+  Then "FULL QA LEAD" should appear in the second column of the list
 
 
   Scenario: Successfully add a new candidate
