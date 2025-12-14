@@ -3,14 +3,13 @@ import { BasePage } from './BasePage';
 import { UserMenu } from './components/UserMenu';
 
 export class LoginPage extends BasePage {
-  page: Page;
-  usernameTextBox: Locator;
-  passwordTextBox: Locator;
-  LoginButton: Locator;
-  loginErrorMessage: Locator;
-  missingUsernameErrorMessage: Locator;
-  missingPasswordErrorMessage: Locator;
-  dashboardHeading: Locator;
+  private usernameTextBox: Locator;
+  private passwordTextBox: Locator;
+  private LoginButton: Locator;
+  private loginErrorMessage: Locator;
+  private missingUsernameErrorMessage: Locator;
+  private missingPasswordErrorMessage: Locator;
+  private dashboardHeading: Locator;
   userMenu: UserMenu;
   constructor(page: Page) {
     super(page);
@@ -28,31 +27,31 @@ export class LoginPage extends BasePage {
       .nth(1);
     this.dashboardHeading = this.page.getByRole('heading', { name: 'Dashboard', level: 6 });
   }
-  async goToOrange(url: string) {
+  public async goToOrange(url: string) {
     //XXXXX -- NEED TO PUSH THIS TO BASEPAGE -- XXXXX
     await this.page.goto(url, { waitUntil: 'load' });
   }
-  async fillUsernameAndPassword(username: string, password: string) {
+  public async fillUsernameAndPassword(username: string, password: string) {
     await this.usernameTextBox.fill(username);
     await this.passwordTextBox.fill(password);
   }
-  async clickLoginButton() {
+  public async clickLoginButton() {
     await this.click(this.LoginButton);
   }
-  async waitForDashboard() {
+  public async waitForDashboard() {
     await this.wait(this.dashboardHeading);
   }
-  async getCurrentURL(): Promise<string> {
+  public async getCurrentURL(): Promise<string> {
     return this.page.url();
   }
 
-  async getInvalidLoginErrorText(): Promise<string> {
+  public async getInvalidLoginErrorText(): Promise<string> {
     return this.getText(this.loginErrorMessage);
   }
-  async getMissingUsernameErrorText(): Promise<string> {
+  public async getMissingUsernameErrorText(): Promise<string> {
     return this.getText(this.missingUsernameErrorMessage);
   }
-  async getMissingPasswordErrorText(): Promise<string> {
+  public async getMissingPasswordErrorText(): Promise<string> {
     return this.getText(this.missingPasswordErrorMessage);
   }
 }

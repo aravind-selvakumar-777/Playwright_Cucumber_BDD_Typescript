@@ -2,9 +2,8 @@ import { Locator, Page } from 'playwright';
 import { BasePage } from '../BasePage';
 
 export class UserMenu extends BasePage {
-  page: Page;
-  userMenu: Locator;
-  menuList: Locator;
+  private userMenu: Locator;
+  private menuList: Locator;
   readonly options = {
     about: 'About',
     support: 'Support',
@@ -18,11 +17,11 @@ export class UserMenu extends BasePage {
     this.menuList = this.page.locator('ul.oxd-dropdown-menu');
   }
 
-  async openUserMenu() {
+  public async openUserMenu() {
     await this.click(this.userMenu);
     await this.wait(this.menuList);
   }
-  async clickUserMenuItem(name: keyof typeof this.options) {
+  public async clickUserMenuItem(name: keyof typeof this.options) {
     await this.openUserMenu();
     const label = this.options[name];
     await this.click(this.menuList.getByRole('menuitem', { name: label }));

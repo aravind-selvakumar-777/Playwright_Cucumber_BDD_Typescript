@@ -2,14 +2,13 @@ import { Locator, Page } from 'playwright';
 import { BasePage } from './BasePage';
 
 export class TimePage extends BasePage {
-  page: Page;
-  alertText: Locator;
-  noRecordTableLocator: Locator;
-  statusLocator: Locator;
-  popupBoxRootlocator: Locator;
-  inputBoxLocator: Locator;
-  saveButtonLocator: Locator;
-  timesheetPeriod: Locator;
+  private alertText: Locator;
+  private noRecordTableLocator: Locator;
+  private statusLocator: Locator;
+  private popupBoxRootlocator: Locator;
+  private inputBoxLocator: Locator;
+  private saveButtonLocator: Locator;
+  private timesheetPeriod: Locator;
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -22,37 +21,37 @@ export class TimePage extends BasePage {
     this.timesheetPeriod = this.page.getByRole('heading', { level: 6 }).last();
   }
 
-  getTimesheetNameLocator(userName: string) {
+  private getTimesheetNameLocator(userName: string) {
     return this.page.getByRole('heading', { level: 6, name: `Timesheet for ${userName}` });
   }
-  async getTimesheetName(name: string): Promise<string> {
+  public async getTimesheetName(name: string): Promise<string> {
     await this.page.waitForLoadState('networkidle');
     return await this.getText(this.getTimesheetNameLocator(name));
   }
-  async getAlertMessage(): Promise<string> {
+  public async getAlertMessage(): Promise<string> {
     await this.wait(this.alertText);
     return await this.getText(this.alertText);
   }
-  async getNoRecordMessage(): Promise<string> {
+  public async getNoRecordMessage(): Promise<string> {
     await this.wait(this.noRecordTableLocator);
     return await this.getText(this.noRecordTableLocator);
   }
 
-  getStatusLocator(): Locator {
+  public getStatusLocator(): Locator {
     return this.statusLocator;
   }
 
-  async fillInputBoxAndSave(text: string) {
+  public async fillInputBoxAndSave(text: string) {
     await this.wait(this.popupBoxRootlocator);
     const inputBox = this.popupBoxRootlocator.locator('input').first();
     const saveButton = this.popupBoxRootlocator.getByRole('button', { name: 'Save' });
     await this.fillText(inputBox, text);
     await this.click(saveButton);
   }
-  async getTimesheetPeriod(): Promise<string> {
+  public async getTimesheetPeriod(): Promise<string> {
     return await this.getText(this.timesheetPeriod);
   }
-  getCurrentWeekInTimesheetFormat(): string {
+  public getCurrentWeekInTimesheetFormat(): string {
     const d = new Date();
 
     // getDay(): 0 = Sunday, 1 = Monday, ... 6 = Saturday

@@ -4,26 +4,25 @@ import { BasePage } from './BasePage';
 import { expect } from 'playwright/test';
 
 export class RecruitmentPage extends BasePage {
-  page: Page;
   sideMenu: SideMenu;
-  addButton: Locator;
-  firstNameTextBox: Locator;
-  middleNameTextBox: Locator;
-  lastNameTextBox: Locator;
-  emailTextBox: Locator;
-  vacancyDropdownBox: Locator;
-  uploadResumeLocator: Locator;
-  statusMessage: Locator;
-  firstNameTableEntry: Locator;
-  candidatesTab: Locator;
-  candidateTableRow: Locator;
-  editToggleButton: Locator;
-  contactNumberTextBox: Locator;
-  recruitmentStatus: Locator;
-  vacancyNameTextField: Locator;
-  jobTitleDropdownBox: Locator;
-  employeeNameTextBox: any;
-  searchDropdownBox: Locator;
+  private addButton: Locator;
+  private firstNameTextBox: Locator;
+  private middleNameTextBox: Locator;
+  private lastNameTextBox: Locator;
+  private emailTextBox: Locator;
+  private vacancyDropdownBox: Locator;
+  private uploadResumeLocator: Locator;
+  private statusMessage: Locator;
+  private firstNameTableEntry: Locator;
+  private candidatesTab: Locator;
+  private candidateTableRow: Locator;
+  private editToggleButton: Locator;
+  private contactNumberTextBox: Locator;
+  private recruitmentStatus: Locator;
+  private vacancyNameTextField: Locator;
+  private jobTitleDropdownBox: Locator;
+  private employeeNameTextBox: Locator;
+  private searchDropdownBox: Locator;
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -54,45 +53,46 @@ export class RecruitmentPage extends BasePage {
     this.searchDropdownBox = this.page.getByRole('listbox');
   }
 
-  async clickAddButton() {
+  public async clickAddButton() {
     await this.click(this.addButton);
   }
 
-  async fillFullName(first: string, last: string, middle?: string) {
+  public async fillFullName(first: string, last: string, middle?: string) {
     await this.fillText(this.firstNameTextBox, first);
     await this.fillText(this.lastNameTextBox, last);
     await this.fillText(this.middleNameTextBox, middle ? middle : '');
   }
 
-  async fillEmail(email: string) {
+  public async fillEmail(email: string) {
     await this.fillText(this.emailTextBox, email);
   }
 
-  async selectVacancyDropdown(value: string) {
+  public async selectVacancyDropdown(value: string) {
     await this.click(this.vacancyDropdownBox);
     await this.click(this.dropdownOptionLocator(value));
   }
 
-  async uploadResume(path: string) {
+  public async uploadResume(path: string) {
     await this.uploadResumeLocator.setInputFiles(path);
   }
 
-  async getStatusPopMessage(): Promise<string> {
+  public async getStatusPopMessage(): Promise<string> {
     await this.wait(this.statusMessage);
     const status = await this.getText(this.statusMessage);
     await this.statusMessage.waitFor({ state: 'hidden' });
     return status;
   }
 
-  async clickCandidatesbutton() {
+  public async clickCandidatesbutton() {
     this.click(this.candidatesTab);
+    await this.page.waitForLoadState('networkidle');
   }
-  async isNamePresent(name: string): Promise<boolean> {
+  public async isNamePresent(name: string): Promise<boolean> {
     const element = this.page.getByText(name).first();
     return (await element.isEnabled()) && (await element.isVisible());
   }
 
-  async findAndClickCandidate(candidateName: string) {
+  public async findAndClickCandidate(candidateName: string) {
     const count = await this.candidateTableRow.count();
     for (let i = 0; i < count; i++) {
       const name = await this.getText(this.candidateTableRow.nth(i).getByRole('cell').nth(2));
@@ -105,39 +105,39 @@ export class RecruitmentPage extends BasePage {
     await this.page.waitForLoadState('networkidle');
   }
 
-  async clickEditToggleButton() {
+  public async clickEditToggleButton() {
     await this.click(this.editToggleButton);
   }
 
-  async updateContactNumber(value: string) {
+  public async updateContactNumber(value: string) {
     await this.fillText(this.contactNumberTextBox, value);
   }
 
-  async getContactNumber(): Promise<string> {
+  public async getContactNumber(): Promise<string> {
     return await this.contactNumberTextBox.inputValue(); //Use input value to retrieve value from input textboxes.
   }
 
-  async getStatus(): Promise<string> {
+  public async getStatus(): Promise<string> {
     await this.wait(this.recruitmentStatus);
     const fullText = await this.getText(this.recruitmentStatus);
     return fullText.split(' ')[1]; // Added to fetch only the status. It is like Status: status.
   }
 
-  async clickOnVacancies(text: string) {
+  public async clickOnVacancies(text: string) {
     await this.click(this.page.getByText(text));
     await this.page.waitForLoadState('networkidle');
   }
 
-  async addName(name: string) {
+  public async addName(name: string) {
     await this.fillText(this.vacancyNameTextField, name);
   }
 
-  async selectJobTitleDropdown(value: string) {
+  public async selectJobTitleDropdown(value: string) {
     await this.click(this.jobTitleDropdownBox);
     await this.click(this.dropdownOptionLocator(value));
   }
 
-  async searchforHiringmanagerByName(Name: string) {
+  public async searchforHiringmanagerByName(Name: string) {
     ///MIGHT HAVE TO MOVE TO BASE PAGE
     const firstName = Name.split(' ')[0];
     await this.employeeNameTextBox.pressSequentially(firstName);
@@ -151,7 +151,7 @@ export class RecruitmentPage extends BasePage {
       }
     }
   }
-  async checkIfNameIsPresentInSecondColumn(candidateName: string): Promise<boolean> {
+  public async checkIfNameIsPresentInSecondColumn(candidateName: string): Promise<boolean> {
     const count = await this.candidateTableRow.count();
     let isNamePresent = false;
     for (let i = 0; i < count; i++) {

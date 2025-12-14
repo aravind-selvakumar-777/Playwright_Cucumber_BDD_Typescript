@@ -2,9 +2,8 @@ import { Locator, Page } from 'playwright';
 import { BasePage } from './BasePage';
 
 export class PIMPage extends BasePage {
-  page: Page;
-  firstNameErrLocator: Locator;
-  lastnameErrLocator: Locator;
+  private firstNameErrLocator: Locator;
+  private lastnameErrLocator: Locator;
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -12,29 +11,29 @@ export class PIMPage extends BasePage {
     this.lastnameErrLocator = this.page.locator('.oxd-input-field-error-message').nth(1);
   }
 
-  createRandomID(): number {
+  public createRandomID(): number {
     return Math.random() * 100000;
   }
 
-  getPersonalDetailsLocator(title: string): Locator {
+  private getPersonalDetailsLocator(title: string): Locator {
     return this.page.getByRole('heading', { level: 6, name: title });
   }
-  getEmployeeNameLocator(_name: string): Locator {
+  private getEmployeeNameLocator(_name: string): Locator {
     return this.page.getByRole('heading', { level: 6, name: _name });
   }
-  async employeeFromTitle(title: string): Promise<string> {
+  public async employeeFromTitle(title: string): Promise<string> {
     await this.wait(this.getPersonalDetailsLocator(title));
     return this.getText(this.getPersonalDetailsLocator(title));
   }
-  async employeeName(_name: string): Promise<string> {
+  public async employeeName(_name: string): Promise<string> {
     return this.getText(this.getEmployeeNameLocator(_name));
   }
 
-  getFirstNameRequiredErrorLocator(): Locator {
+  public getFirstNameRequiredErrorLocator(): Locator {
     return this.firstNameErrLocator;
   }
 
-  getLastNameRequiredErrorLocator(): Locator {
+  public getLastNameRequiredErrorLocator(): Locator {
     return this.lastnameErrLocator;
   }
 }

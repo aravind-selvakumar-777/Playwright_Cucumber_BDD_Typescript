@@ -15,16 +15,15 @@ export class SideMenu extends BasePage {
     claim: 'Claim',
     buzz: 'Buzz',
   } as const;
-  page: Page;
-  rootElement: Locator;
+  private rootElement: Locator;
   constructor(page: Page) {
     super(page);
     this.page = page;
     this.rootElement = this.page.locator('li.oxd-main-menu-item-wrapper');
   }
 
-  async clickSideMenuItem(name: keyof typeof this.options) {
+  public async clickSideMenuItem(name: keyof typeof this.options) {
     await this.click(this.rootElement.locator(' span', { hasText: this.options[name] }));
-    await this.page.waitForLoadState('networkidle');
+    await this.page.reload({waitUntil:'networkidle'});
   }
 }

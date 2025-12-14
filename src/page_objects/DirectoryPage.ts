@@ -3,12 +3,11 @@ import { BasePage } from './BasePage';
 import { expect } from 'playwright/test';
 
 export class DirectoryPage extends BasePage {
-  page: Page;
-  employeeNameTextBox: Locator;
-  searchDropdownBox: Locator;
-  directoryName: Locator;
-  jobTitleDropDownBox: Locator;
-  employeeTitle: Locator;
+  private employeeNameTextBox: Locator;
+  private searchDropdownBox: Locator;
+  private directoryName: Locator;
+  private jobTitleDropDownBox: Locator;
+  private employeeTitle: Locator;
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -18,7 +17,7 @@ export class DirectoryPage extends BasePage {
     this.jobTitleDropDownBox = this.page.locator('.oxd-select-text').first();
     this.employeeTitle = this.page.locator('p.orangehrm-directory-card-subtitle');
   }
-  async searchByEmployeeName(Name: string) {
+  public async searchByEmployeeName(Name: string) {
     const firstName = Name.split(' ')[0];
     await this.employeeNameTextBox.pressSequentially(firstName);
     await this.wait(this.searchDropdownBox);
@@ -32,15 +31,15 @@ export class DirectoryPage extends BasePage {
       }
     }
   }
-  async getDirectoryName(): Promise<string> {
+  public async getDirectoryName(): Promise<string> {
     return (await this.getText(this.directoryName))?.split('  ').join(' ');
   }
 
-  async selectJobTtileDropdown(value: string) {
+  public async selectJobTtileDropdown(value: string) {
     await this.click(this.jobTitleDropDownBox);
     await this.click(this.dropdownOptionLocator(value));
   }
-  async assertHavingSameTitle(value: string): Promise<boolean> {
+  public async assertHavingSameTitle(value: string): Promise<boolean> {
     const count = await this.employeeTitle.count();
     console.log(count);
     let status = true;

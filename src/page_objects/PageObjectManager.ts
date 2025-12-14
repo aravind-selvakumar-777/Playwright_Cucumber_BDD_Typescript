@@ -7,13 +7,13 @@ import { AdminPage } from './AdminPage';
 import { TimePage } from './TimePage';
 
 export class PageObjectManager {
-  page: Page;
-  loginPage: LoginPage;
-  recruitmentPage: RecruitmentPage;
-  directoryPage: DirectoryPage;
-  pimPage: PIMPage;
-  adminPage: AdminPage;
-  timePage: TimePage;
+  private page: Page;
+  public loginPage: LoginPage;
+  public recruitmentPage: RecruitmentPage;
+  public directoryPage: DirectoryPage;
+  public pimPage: PIMPage;
+  public adminPage: AdminPage;
+  public timePage: TimePage;
   constructor(page: Page) {
     this.page = page;
     this.loginPage = new LoginPage(this.page);
@@ -24,22 +24,22 @@ export class PageObjectManager {
     this.timePage = new TimePage(this.page);
   }
 
-  getLoginPage(): LoginPage {
+  public getLoginPage(): LoginPage {
     return this.loginPage;
   }
-  getRecruitmentPage(): RecruitmentPage {
+  public getRecruitmentPage(): RecruitmentPage {
     return this.recruitmentPage;
   }
-  getDirectoryPage(): DirectoryPage {
+  public getDirectoryPage(): DirectoryPage {
     return this.directoryPage;
   }
-  getPIMPage(): PIMPage {
+  public getPIMPage(): PIMPage {
     return this.pimPage;
   }
-  getAdminPage(): AdminPage {
+  public getAdminPage(): AdminPage {
     return this.adminPage;
   }
-  getTimePage(): TimePage {
+  public getTimePage(): TimePage {
     return this.timePage;
   }
 }

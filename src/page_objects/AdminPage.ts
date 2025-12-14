@@ -2,9 +2,8 @@ import { Locator, Page } from 'playwright';
 import { BasePage } from './BasePage';
 
 export class AdminPage extends BasePage {
-  page: Page;
-  openMenu: Locator;
-  candidateTableRow: Locator;
+  private openMenu: Locator;
+  private candidateTableRow: Locator;
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -12,19 +11,19 @@ export class AdminPage extends BasePage {
     this.candidateTableRow = this.page.locator('.oxd-table-body').getByRole('row');
   }
 
-  getMainMenuLocatorFromPage(MainMenuName: string): Locator {
+  private getMainMenuLocatorFromPage(MainMenuName: string): Locator {
     return this.page.locator('.oxd-topbar-body-nav-tab-item', { hasText: MainMenuName });
   }
-  getSubMenuLocator(subMenuName: string): Locator {
+  private getSubMenuLocator(subMenuName: string): Locator {
     return this.page.getByRole('menuitem', { name: subMenuName });
   }
-  async navigateToAddJobTitles(mainMenuName: string, subMenuName: string) {
+  public async navigateToAddJobTitles(mainMenuName: string, subMenuName: string) {
     await this.click(this.getMainMenuLocatorFromPage(mainMenuName));
     this.wait(this.openMenu);
     await this.click(this.getSubMenuLocator(subMenuName));
     await this.page.waitForLoadState('networkidle');
   }
-  async checkIfNameIsPresentInFirstColumn(title: string): Promise<boolean> {
+  public async checkIfNameIsPresentInFirstColumn(title: string): Promise<boolean> {
     await this.wait(this.candidateTableRow.last());
     await this.page.waitForLoadState('networkidle');
     const count = await this.candidateTableRow.count();

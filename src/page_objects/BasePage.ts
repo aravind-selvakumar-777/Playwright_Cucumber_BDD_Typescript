@@ -1,14 +1,14 @@
 import { Locator, Page } from 'playwright';
 
 export class BasePage {
-  page: Page;
-  pageTitle: Locator;
+  protected page: Page;
+  private pageTitle: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.pageTitle = this.page.getByRole('heading', { level: 6 }).first();
   }
-  async fillText(locator: Locator, value: string) {
+  public async fillText(locator: Locator, value: string) {
     try {
       await locator.waitFor({ state: 'visible' });
       await locator.fill(''); // TO ENSURE THE FIELD IS ALWAYS EMPTY
@@ -19,7 +19,7 @@ export class BasePage {
     }
   }
 
-  async click(locator: Locator) {
+  public async click(locator: Locator) {
     try {
       await locator.waitFor({ state: 'visible' });
       await locator.click();
@@ -29,7 +29,7 @@ export class BasePage {
     }
   }
 
-  async clickButton(name: string) {
+  public async clickButton(name: string) {
     try {
       // Changed it to REGEX since we want exact name matching only. With extra spaces, exact:true wont work.
       const locator = this.page
@@ -42,11 +42,11 @@ export class BasePage {
     }
   }
 
-  async wait(locator: Locator) {
+  public async wait(locator: Locator) {
     await locator.waitFor({ state: 'visible' });
   }
 
-  async getText(locator: Locator, elementName = 'element'): Promise<string> {
+  public async getText(locator: Locator, elementName = 'element'): Promise<string> {
     try {
       await locator.waitFor({ state: 'visible', timeout: 5000 });
       const text = await locator.textContent();
@@ -60,11 +60,11 @@ export class BasePage {
     }
   }
 
-  async getPageTitle() {
+  public async getPageTitle() {
     return this.getText(this.pageTitle);
   }
 
-  dropdownOptionLocator(value: string): Locator {
+  public dropdownOptionLocator(value: string): Locator {
     return this.page.getByRole('option', { name: value });
   }
 }
