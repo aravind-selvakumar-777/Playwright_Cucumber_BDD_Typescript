@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preTest": "npx cucumber-js --tags @preStep",
+    "preTest": "npx cucumber-js --tags @preStep --parallel 1",
     "test": "npx cucumber-js --tags \"not @preStep\"",
     "lint": "npx eslint . --fix"
   },
