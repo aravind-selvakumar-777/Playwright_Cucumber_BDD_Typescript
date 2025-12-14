@@ -15,6 +15,7 @@ Feature: Contains pre-steps for other scenarios to generate test data
         Examples:
             | Title             |
             | MONSTER EXCAVATOR |
+            | FULL QA LEAD      |
 
 
 
@@ -34,7 +35,7 @@ Feature: Contains pre-steps for other scenarios to generate test data
             | MARTIN    | THOMAS   | MARTIN THOMAS | MONSTER EXCAVATOR  | 
 
 
-    Scenario Outline: MAp hiring manager & create new vacancies
+    Scenario Outline: Map hiring manager & create new vacancies
         And I click on "recruitment" menu
         When the user clicks on "Vacancies"
         When the user clicks the "Add" button
