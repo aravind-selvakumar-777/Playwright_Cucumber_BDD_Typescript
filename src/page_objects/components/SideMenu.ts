@@ -24,6 +24,6 @@ export class SideMenu extends BasePage {
 
   public async clickSideMenuItem(name: keyof typeof this.options) {
     await this.click(this.rootElement.locator(' span', { hasText: this.options[name] }));
-    await this.page.reload({waitUntil:'networkidle'});
+    await this.page.reload({ waitUntil: 'networkidle' });
   }
 }

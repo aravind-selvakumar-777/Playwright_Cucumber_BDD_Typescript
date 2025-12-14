@@ -8,19 +8,21 @@ Feature: To handle the functionalities present in Recruitment page.
   Scenario: User navigates to the Recruitment page
     Then I should be in the "Recruitment" page
 
-Scenario: Add a new job vacancy
-  When the user clicks on "Vacancies"
-  When the user clicks the "Add" button
-  And adds "Pinnacle QA Lead" in Name field
-  And selects "FULL QA LEAD" as the Job Title field
-  And the enters "MARTIN THOMAS" into the Hiring Manager field
-  And the user clicks the "Save" button
-  And I click on "recruitment" menu
-  And the user clicks on "Vacancies"
-  Then "FULL QA LEAD" should appear in the second column of the list
+  Scenario: Add a new job vacancy
+    Given I should be in the "Recruitment" page
+    When the user clicks on "Vacancies"
+    When the user clicks the "Add" button
+    And adds "Pinnacle QA Lead" in Name field
+    And selects "FULL QA LEAD" as the Job Title field
+    And the enters "MARTIN THOMAS" into the Hiring Manager field
+    And the user clicks the "Save" button
+    And I click on "recruitment" menu
+    And the user clicks on "Vacancies"
+    Then "FULL QA LEAD" should appear in the second column of the list
 
 
   Scenario: Successfully add a new candidate
+    Given I should be in the "Recruitment" page
     When the user clicks on the Add button
     And the user enters candidate first name "ALEXANDER" and last name "REYNOLDS"
     And the user enters email "alex.reynolds.qa@gmail.com"
@@ -30,15 +32,17 @@ Scenario: Add a new job vacancy
     Then a success message should be displayed "Successfully Saved"
     And the new candidate "ALEXANDER REYNOLDS" should appear in the candidate list
 
-  
+
   Scenario: Shortlist a candidate from the candidate list
+    Given I should be in the "Recruitment" page
     When the user finds and selects the candidate "ALEXANDER REYNOLDS"
     And the user clicks the "Shortlist" button
     And the user clicks the "Save" button
     Then the candidate status should update to "Shortlisted"
 
   Scenario: Edit an existing candidate
-    Given the user finds and selects the candidate "ALEXANDER REYNOLDS"
+    Given I should be in the "Recruitment" page
+    When the user finds and selects the candidate "ALEXANDER REYNOLDS"
     And the user clicks the Edit toggle button
     And the user updates the contact number to "9876543210"
     And the user clicks the "Save" button
