@@ -17,7 +17,7 @@ Feature: To contain the scenarios related to time page of Orange HRM.
         And "No Timesheets Found" alert message should be displayed
 
 
-    Scenario: Add timesheet for an employee current week for the User and submit an empty timesheet
+    Scenario: Add timesheet for an employee current week for the User and submit and approve an empty timesheet
         Given I should be in the "Time" page
         When the user enters "MARTIN THOMAS" into the Name field
         And the user clicks the "View" button
@@ -27,12 +27,6 @@ Feature: To contain the scenarios related to time page of Orange HRM.
         And an empty timesheet with message "No Records Found" should be present
         When the user clicks the "Submit" button
         Then a success message should be displayed "Timesheet Submitted"
-
-    Scenario: Approve the submitted employee timesheet
-        Given I should be in the "Time" page
-        When the user enters "MARTIN THOMAS" into the Name field
-        And the user clicks the "View" button
-        Then the system should display the timesheet for "MARTIN THOMAS"
         When the user clicks the "Approve" button
         Then status should show as "Approved"
 
