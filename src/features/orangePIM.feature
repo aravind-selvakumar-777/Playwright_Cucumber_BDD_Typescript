@@ -7,6 +7,7 @@ Feature: To contain the scenarios related to PIM page of Orange HRM.
         And I click on "pim" menu
 
     Scenario: Add a new employee with mandatory fields
+        Given I should be in the "PIM" page
         When the user clicks the "Add" button
         And the user enters candidate first name "Shinra" and last name "Tensei"
         And enters a random employee id
@@ -15,6 +16,7 @@ Feature: To contain the scenarios related to PIM page of Orange HRM.
 
 
     Scenario: System shows validation for missing mandatory fields
+        Given I should be in the "PIM" page
         When the user clicks the "Add" button
         And the user clicks the "Save" button
         Then the system should show validation messages for required fields
