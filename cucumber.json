@@ -9,6 +9,7 @@
     "formatOptions": {
       "snippetInterface": "async-await"
     },
-    "dryRun": false
+    "dryRun": false,
+    "retry":2
   }
 }
