@@ -27,6 +27,7 @@ Used AI to generate readme :p.
 - [Node.js](https://nodejs.org/) v16+ -- For running TS
 - Visual Studio Code -- Code Editor
 - Goto https://opensource-demo.orangehrmlive.com to setup environment variables later(Step 4 of Installation section).
+
 ---
 
 ## 🛠️ Installation
@@ -47,25 +48,38 @@ Used AI to generate readme :p.
     npx playwright install --with-deps
     ```
 
-   > _💡 We currently only use **Chromium** by default for executions.  
-   You can enable Firefox, WebKit, etc. as needed. Just change browser in `src/support/world.ts`.
-
 4. Make sure you create a .env file in project root if you want to execute the current tests.
    Example:
    BASE_URL= OrangedemoURL
    NAME= Get from website
    PASSWORD= Get from website
+
 ---
 
 ## 🧪 Running Tests
 
-To run all tests in headless mode:
+- Run to create test data before below command:
 ```bash
-npx run test
+npm run preTest
 ```
+NOTE: 
+-Since the website data keeps changing by other users, kept creating test data separate with no cleanup :(
+-In future releases it will be fixed.
+
+- To run all tests in headless mode:
+```bash
+npm run test
+```
+- To run in specific browser:  
+```bash
+npm run test:firefox
+npm run test:chromium
+npm run test:webkit
+```
+
 - To run in headed mode:  
-  Replace `src/support/world.ts` line 11 with below:  
-  `this.browser = await chromium.launch({ headless: false });`
+  Replace `src/support/world.ts` line 13 with below:  
+  `this.browser = await envBrowser.launch({ headless: false });`
 
 ---
 
