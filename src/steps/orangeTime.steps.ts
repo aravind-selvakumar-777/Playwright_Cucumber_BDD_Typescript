@@ -1,6 +1,7 @@
-import { Then, When } from '@cucumber/cucumber';
+import { Given, Then, When } from '@cucumber/cucumber';
 import { CustomWorld } from '../support/world';
 import { expect } from 'playwright/test';
+import { createCustomer, deleteCustomer } from '../services/time.service';
 
 Then(
   'the system should display the timesheet for {string}',
@@ -35,6 +36,20 @@ Then(
   'the timesheet period must be of current week, monday to sunday',
   async function (this: CustomWorld) {
     const timePage = this.pageObjectManager.getTimePage();
-    expect(await timePage.getTimesheetPeriod()).toEqual(timePage.getCurrentWeekInTimesheetFormat());
+    await timePage.wait(timePage.getTimesheetPeriodLocator());
+    await expect(timePage.getTimesheetPeriodLocator()).toHaveText(
+      timePage.getCurrentWeekInTimesheetFormat()
+    );
   }
 );
+
+Given('I create an customer with name {string}', async function (this: CustomWorld, name: string) {
+  await createCustomer(this, name);
+  this.cleanupData.push(() => deleteCustomer(this, name));
+});
+
+When('adds {string} in project Name field', async function (this: CustomWorld, name: string) {
+  const recruitmentPage = this.pageObjectManager.getRecruitmentPage();
+  await recruitmentPage.addName(name);
+  // this.cleanupData.push(() => deleteProject(this, name)); //Delete Customer will delete project
+});
