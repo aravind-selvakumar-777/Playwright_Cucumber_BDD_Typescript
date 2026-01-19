@@ -23,6 +23,7 @@ export class RecruitmentPage extends BasePage {
   private jobTitleDropdownBox: Locator;
   private employeeNameTextBox: Locator;
   private searchDropdownBox: Locator;
+  vacancyTitle: Locator;
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -51,6 +52,7 @@ export class RecruitmentPage extends BasePage {
     this.jobTitleDropdownBox = this.page.locator('.oxd-select-text').first();
     this.employeeNameTextBox = this.page.getByPlaceholder('Type for hints...');
     this.searchDropdownBox = this.page.getByRole('listbox');
+    this.vacancyTitle = this.page.getByRole('heading', { level: 6 });
   }
 
   public async clickAddButton() {
@@ -126,6 +128,7 @@ export class RecruitmentPage extends BasePage {
   public async clickOnVacancies(text: string) {
     await this.click(this.page.getByText(text));
     await this.page.waitForLoadState('networkidle');
+    await this.page.getByRole('heading', { name: text, level: 5 }).waitFor({ state: 'visible' });
   }
 
   public async addName(name: string) {
@@ -137,26 +140,37 @@ export class RecruitmentPage extends BasePage {
     await this.click(this.dropdownOptionLocator(value));
   }
 
+  public getVacancyPageTitleLocator(Name: string): Locator {
+    return this.vacancyTitle.filter({ hasText: Name });
+  }
+
   public async searchforHiringmanagerByName(Name: string) {
-    ///MIGHT HAVE TO MOVE TO BASE PAGE
     const firstName = Name.split(' ')[0];
     await this.employeeNameTextBox.pressSequentially(firstName);
     await this.wait(this.searchDropdownBox);
     await expect(this.searchDropdownBox).not.toHaveText('Searching....'); // Added THIS AS A CUSTOM WAIT
-    for (let i = 0; i < (await this.searchDropdownBox.count()); i++) {
-      const fullName = await this.getText(this.searchDropdownBox.nth(i));
-      if (fullName?.split('  ').join(' ') === Name) {
-        this.click(this.searchDropdownBox.nth(i));
-        break;
-      }
-    }
+    const option = this.searchDropdownBox.filter({ hasText: Name }).first();
+
+    await option.waitFor({ state: 'visible' });
+    await option.scrollIntoViewIfNeeded();
+    await option.click();
   }
   public async checkIfNameIsPresentInSecondColumn(candidateName: string): Promise<boolean> {
+    await expect
+      .poll(
+        async () => {
+          return await this.candidateTableRow.count();
+        },
+        { timeout: 10_000 }
+      )
+      .toBeGreaterThan(2);
+
     const count = await this.candidateTableRow.count();
     let isNamePresent = false;
     for (let i = 0; i < count; i++) {
-      const name = await this.getText(this.candidateTableRow.nth(i).getByRole('cell').nth(2));
-      if (name.split('  ').join(' ') === candidateName) {
+      const cellLocator = this.candidateTableRow.nth(i).getByRole('cell').nth(2);
+      const name = await cellLocator.textContent();
+      if (name?.split('  ').join(' ') === candidateName) {
         isNamePresent = true;
         break;
       }

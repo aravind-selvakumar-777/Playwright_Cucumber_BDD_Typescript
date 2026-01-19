@@ -15,40 +15,31 @@ export class DirectoryPage extends BasePage {
     this.searchDropdownBox = this.page.getByRole('listbox');
     this.directoryName = this.page.locator('.orangehrm-directory-card p').first();
     this.jobTitleDropDownBox = this.page.locator('.oxd-select-text').first();
-    this.employeeTitle = this.page.locator('p.orangehrm-directory-card-subtitle');
+    this.employeeTitle = this.page.locator('p.orangehrm-directory-card-subtitle').first();
   }
   public async searchByEmployeeName(Name: string) {
     const firstName = Name.split(' ')[0];
-    await this.employeeNameTextBox.pressSequentially(firstName);
-    await this.wait(this.searchDropdownBox);
+    await this.employeeNameTextBox.pressSequentially(firstName, { delay: 50 });
+    await expect(this.searchDropdownBox.first()).toBeVisible({
+      timeout: 10_000,
+    });
     await expect(this.searchDropdownBox).not.toHaveText('Searching....'); // Added THIS AS A CUSTOM WAIT
 
-    for (let i = 0; i < (await this.searchDropdownBox.count()); i++) {
-      const fullName = await this.searchDropdownBox.nth(i).textContent();
-      if (fullName?.split('  ').join(' ') === Name) {
-        this.click(this.searchDropdownBox.nth(i));
-        break;
-      }
-    }
+    const option = this.searchDropdownBox.filter({ hasText: Name }).first();
+
+    await option.waitFor({ state: 'visible' });
+    await option.scrollIntoViewIfNeeded();
+    await this.click(option);
   }
-  public async getDirectoryName(): Promise<string> {
-    return (await this.getText(this.directoryName))?.split('  ').join(' ');
+  public getDirectoryNameLocator(): Locator {
+    return this.directoryName;
   }
 
   public async selectJobTtileDropdown(value: string) {
     await this.click(this.jobTitleDropDownBox);
     await this.click(this.dropdownOptionLocator(value));
   }
-  public async assertHavingSameTitle(value: string): Promise<boolean> {
-    const count = await this.employeeTitle.count();
-    console.log(count);
-    let status = true;
-    for (let i = 0; i < count; i++) {
-      if ((await this.getText(this.employeeTitle.nth(i))) != value) {
-        status = false;
-        break;
-      }
-    }
-    return status;
+  public getJobTitleLocator(): Locator {
+    return this.employeeTitle;
   }
 }
