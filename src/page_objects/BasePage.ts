@@ -1,4 +1,5 @@
 import { Locator, Page } from 'playwright';
+import { expect } from 'playwright/test';
 
 export class BasePage {
   protected page: Page;
@@ -21,7 +22,9 @@ export class BasePage {
 
   public async click(locator: Locator) {
     try {
-      await locator.waitFor({ state: 'visible' });
+      await locator.waitFor({ state: 'attached' });
+      await expect(locator).toBeVisible();
+      await expect(locator).toBeEnabled();
       await locator.click();
     } catch (error) {
       console.error(`Failed to click on target: ${locator}`, error);
@@ -35,20 +38,22 @@ export class BasePage {
       const locator = this.page
         .locator('button', { hasText: new RegExp(`^\\s*${name.trim()}\\s*$`) })
         .first();
-      await Promise.all([this.page.waitForEvent('requestfinished'), this.click(locator)]);
+      await Promise.all([this.page.waitForLoadState(), this.click(locator)]);
     } catch (error) {
       console.error(`Failed to click on button: ${name}`, error);
       throw error;
     }
   }
 
-  public async wait(locator: Locator) {
-    await locator.waitFor({ state: 'visible' });
+  public async wait(locator: Locator, timeout = 20_000) {
+    await locator.waitFor({ state: 'attached', timeout });
+    await locator.waitFor({ state: 'visible', timeout });
+    await expect(locator).toBeEnabled();
   }
 
   public async getText(locator: Locator, elementName = 'element'): Promise<string> {
     try {
-      await locator.waitFor({ state: 'visible', timeout: 5000 });
+      await locator.waitFor({ state: 'visible', timeout: 10000 });
       const text = await locator.textContent();
 
       if (text === null) {
