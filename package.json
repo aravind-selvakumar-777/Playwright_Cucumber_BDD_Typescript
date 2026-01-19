@@ -1,11 +1,9 @@
 {
   "name": "playwright_bdd_typescipt",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "scripts": {
-    "test": "npx cucumber-js --tags \"not @preStep\"",
-    "preTest": "npx cucumber-js --tags @preStep --parallel 1",
+    "test": "npx cucumber-js",
     "test:chromium": "cross-env BROWSER=chromium npm run test",
-    "test:firefox": "cross-env BROWSER=firefox npm run test",
     "test:webkit": "cross-env BROWSER=webkit npm run test",
     "lint": "npx eslint . --fix"
   },
