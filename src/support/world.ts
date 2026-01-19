@@ -1,21 +1,34 @@
 import { setWorldConstructor, World } from '@cucumber/cucumber';
-import { Browser, Page, chromium, firefox, webkit } from 'playwright';
+import { APIRequestContext, Browser, BrowserContext, Page, request } from 'playwright';
 import { PageObjectManager } from '../page_objects/PageObjectManager';
+import { getBrowser } from './browser';
 
 export class CustomWorld extends World {
   browser!: Browser;
+  context!: BrowserContext;
   page!: Page;
   pageObjectManager!: PageObjectManager;
+  apiContext!: APIRequestContext;
+  cleanupData: Array<() => Promise<void>> = [];
 
-  async openBrowser() {
-    const browsers = { chromium, firefox, webkit } as const; //as const at the end makes the object properties immutable
-    const envBrowser = browsers[process.env.BROWSER as keyof typeof browsers] ?? chromium; // To covert string type from env into type of keys present in browsers object
-    this.browser = await envBrowser.launch();
-    this.page = await this.browser.newPage();
+  async createScenario() {
+    this.context = await getBrowser().newContext();
+    this.page = await this.context.newPage();
   }
 
-  async closeBrowser() {
-    await this.browser.close();
+  async cleanupScenario() {
+    await this.context?.close();
+  }
+
+  async initApiContext() {
+    if (!this.apiContext) {
+      this.apiContext = await request.newContext({
+        baseURL: `${process.env.BASE_URL}/web/index.php/api/v2/`,
+        extraHTTPHeaders: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
   }
 }
 
