@@ -5,6 +5,7 @@ Feature: Contains scenarios of Admin module
     Given the user is logged into OrangeHRM
     And I click on "admin" menu
 
+  @cleanup
   Scenario: Add a new job title
     Given I should be in the "Admin" page
     When the user clicks on "Job" and selects "Job Titles"
