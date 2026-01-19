@@ -58,28 +58,19 @@ Used AI to generate readme :p.
 
 ## 🧪 Running Tests
 
-- Run to create test data before below command:
-```bash
-npm run preTest
-```
-NOTE: 
--Since the website data keeps changing by other users, kept creating test data separate with no cleanup :(
--In future releases it will be fixed.
-
 - To run all tests in headless mode:
 ```bash
 npm run test
 ```
 - To run in specific browser:  
 ```bash
-npm run test:firefox
 npm run test:chromium
 npm run test:webkit
 ```
 
 - To run in headed mode:  
-  Replace `src/support/world.ts` line 13 with below:  
-  `this.browser = await envBrowser.launch({ headless: false });`
+  Replace `src/support/browser.ts` line 9 with below:  
+  `browser = await envBrowser.launch({ headless: false });`
 
 ---
 
@@ -132,7 +123,7 @@ Feature: Login functionality
 - **Missing dependencies?**  
   Double-check with `npm install`.
 - **Custom browser settings:**  
-  Edit `src/support/world.ts` for browser options.
+  Edit `src/support/browser.ts` for browser options.
 
 ---
 
