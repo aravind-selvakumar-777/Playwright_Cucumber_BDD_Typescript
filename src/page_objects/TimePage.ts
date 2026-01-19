@@ -48,8 +48,8 @@ export class TimePage extends BasePage {
     await this.fillText(inputBox, text);
     await this.click(saveButton);
   }
-  public async getTimesheetPeriod(): Promise<string> {
-    return await this.getText(this.timesheetPeriod);
+  public getTimesheetPeriodLocator(): Locator {
+    return this.timesheetPeriod;
   }
   public getCurrentWeekInTimesheetFormat(): string {
     const d = new Date();
